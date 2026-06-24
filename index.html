@@ -2071,10 +2071,70 @@
             </div>
         </div>
 
-        <!-- Corrective Action Tab (empty for new claim) -->
+        <!-- Corrective Action Tab -->
         <div id="newCorrectiveActionTab" class="tab-content">
-            <div style="padding: 40px; text-align: center; color: #999;">
-                <p>Corrective Action will be available after claim submission.</p>
+            <div class="ticket-form-grid" style="margin: 0 40px 40px;">
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Complaint Number:</label>
+                    <input type="text" value="26062320146" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label" style="background: #d32f2f; color: white;">Assigned To:</label>
+                    <input type="text" value="Harisadhan Mandal" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Containment Action:</label>
+                    <select class="ticket-form-input"><option selected>NO SELECTED</option><option>Action 1</option><option>Action 2</option></select>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Containment Date:</label>
+                    <input type="date" class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Comments:</label>
+                    <textarea style="background: #f0f0f0 !important; border: none; padding: 8px; border-radius: 4px; font-family: Arial; font-size: 12px; grid-column: 2; min-height: 80px;"></textarea>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Root Cause:</label>
+                    <textarea style="background: #f0f0f0 !important; border: none; padding: 8px; border-radius: 4px; font-family: Arial; font-size: 12px; grid-column: 2; min-height: 80px;"></textarea>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Corrective Action:</label>
+                    <textarea style="background: #fffacd !important; border: none; padding: 8px; border-radius: 4px; font-family: Arial; font-size: 12px; grid-column: 2; min-height: 80px;"></textarea>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">BD File:</label>
+                    <div style="padding: 8px; background: #fffacd; border-radius: 4px; font-size: 12px; grid-column: 2;">No BD file attached</div>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Completion Date:</label>
+                    <div style="display: flex; gap: 12px; align-items: center; grid-column: 2;">
+                        <input type="date" style="flex: 1; background: #fffacd !important; border: none; padding: 8px; border-radius: 4px;">
+                        <div style="display: flex; gap: 8px; font-size: 11px;">
+                            <label><input type="radio" name="completionType"> Actual</label>
+                            <label><input type="radio" name="completionType" checked> Planned</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Hold Escalation:</label>
+                    <div style="display: flex; gap: 8px; grid-column: 2;">
+                        <button style="padding: 6px 12px; background: #d32f2f; color: white; border: none; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: 600;">Hold</button>
+                        <button style="padding: 6px 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: 600;">Un Hold</button>
+                        <input type="number" value="0" style="width: 60px; padding: 6px; background: #fffacd !important; border: none; border-radius: 4px; text-align: center;">
+                    </div>
+                    <div style="grid-column: 2; font-size: 10px; color: #666; margin-top: 4px;">
+                        <label><input type="checkbox"> Mark this box if the material is not received yet and won't stop notifications, type the number of days to hold</label>
+                    </div>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Upload File:</label>
+                    <div style="border: 2px dashed #ddd; padding: 12px; background: #fafafa; border-radius: 4px; grid-column: 2;">
+                        <input type="file" style="display: none;" id="correctiveActionFileUpload">
+                        <div style="font-size: 12px; color: #666; margin-bottom: 8px;">Choose File — No file chosen</div>
+                        <button onclick="document.getElementById('correctiveActionFileUpload').click()" style="padding: 6px 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; font-size: 11px; cursor: pointer;">Upload</button>
+                    </div>
+                </div>
             </div>
         </div>
 
