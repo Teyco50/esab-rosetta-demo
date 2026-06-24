@@ -1026,61 +1026,79 @@
             outline: none;
         }
 
-        /* TICKET DETAILS */
-        .ticket-details-container {
+        /* TICKET DETAILS - NEW GRID STRUCTURE */
+        .ticket-form-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 20px;
             padding: 40px;
             background: white;
-            border-radius: 0;
-            display: grid;
-            grid-template-columns: 180px 1fr 280px;
-            gap: 32px;
             margin: 0 40px 40px;
-            border: none;
         }
-        .ticket-left-labels {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
+        .ticket-form-group {
+            display: grid;
+            grid-template-columns: subgrid;
+            gap: 20px;
+            align-items: center;
         }
-        .ticket-label {
+        .ticket-form-label {
             font-weight: 700;
             font-size: 11px;
             color: #333;
-            padding: 12px 12px;
-            background: #f5f5f5;
-            border-radius: 0;
-            border-left: 3px solid #ccc;
+            padding: 0;
+            background: transparent;
             text-transform: uppercase;
             letter-spacing: 0.3px;
-            border-bottom: 1px solid #e0e0e0;
+            white-space: nowrap;
         }
-        .ticket-center-inputs {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-        .ticket-center-inputs input,
-        .ticket-center-inputs select {
+        .ticket-form-input {
             background: #fffacd !important;
             border: 1px solid #ddd !important;
-            padding: 10px 12px !important;
+            padding: 12px 12px !important;
             font-size: 12px !important;
-            margin-bottom: 0 !important;
             border-radius: 0 !important;
-            border-bottom: 1px solid #e0e0e0 !important;
+            font-family: inherit;
         }
-        .ticket-center-inputs input:focus,
-        .ticket-center-inputs select:focus {
+        .ticket-form-input:focus {
             background: #fffff0 !important;
             border: 1px solid #ffc107 !important;
             outline: none;
             box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
         }
-        .ticket-right-section {
-            background: #f9f9f9;
-            padding: 16px;
-            border-radius: 0;
-            border: 1px solid #e0e0e0;
+
+        .ticket-right-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 40px;
+            background: white;
+            margin: 0 40px 40px;
+        }
+        .ticket-info-group {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+        .ticket-info-group label {
+            font-weight: 600;
+            font-size: 12px;
+            color: #333;
+        }
+        .ticket-info-group input,
+        .ticket-info-group select {
+            background: #fffacd !important;
+            border: 1px solid #ddd !important;
+            padding: 8px 12px !important;
+            font-size: 12px !important;
+            border-radius: 0 !important;
+        }
+        .ticket-info-value {
+            background: #fffacd;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            font-size: 12px;
+            color: #333;
         }
         .form-row-3col {
             display: grid;
@@ -1261,110 +1279,138 @@
 
         <!-- Ticket Details Tab -->
         <div id="ticketDetailsTab" class="tab-content active">
-            <div class="ticket-details-container">
-                <!-- LEFT: Labels -->
-                <div class="ticket-left-labels">
-                    <div class="ticket-label">Complaint Number:</div>
-                    <div class="ticket-label">Urgency Level:</div>
-                    <div class="ticket-label">Status:</div>
-                    <div class="ticket-label">Created:</div>
-                    <div style="height: 20px;"></div>
-                    <div class="form-section-label">⚠ Required Information</div>
-                    <div class="ticket-label" style="background: #ffcdd2; color: #d32f2f;">GIN / Part Number:</div>
-                    <div class="ticket-label">Description</div>
-                    <div class="ticket-label" style="color: #d32f2f;">Serial Number</div>
-                    <div class="ticket-label">Add parts sent for repair</div>
-                    <div style="height: 20px;"></div>
-                    <div class="form-section-label">⚠ Customer Number</div>
-                    <div class="ticket-label" style="background: #ffcdd2; color: #d32f2f;">Customer Number:</div>
-                    <div class="ticket-label">Customer:</div>
-                    <div class="ticket-label" style="color: #d32f2f;">Total Quantity Claimed</div>
-                    <div class="ticket-label">Unit of Measure</div>
-                    <div class="ticket-label" style="color: #d32f2f;">Out of the Box Failure:</div>
-                    <div class="ticket-label">Issue:</div>
-                    <div class="ticket-label">Issue Detail:</div>
-                    <div class="ticket-label">Business Unit:</div>
-                    <div class="ticket-label">Purchase Order</div>
+            <div class="ticket-form-grid">
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Complaint Number:</label>
+                    <input type="text" value="2606232014536" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Urgency Level:</label>
+                    <select class="ticket-form-input"><option>Select a Level</option></select>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Status:</label>
+                    <select class="ticket-form-input"><option selected>Draft</option></select>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Created:</label>
+                    <input type="text" value="6/23/2026 8:14:46 PM" readonly class="ticket-form-input">
                 </div>
 
-                <!-- CENTER: Input Fields -->
-                <div class="ticket-center-inputs">
-                    <input type="text" value="2606232014536" readonly style="background: #FFFACD;">
-                    <select><option>Select a Level</option></select>
-                    <select><option selected>Draft</option></select>
-                    <input type="text" value="6/23/2026 8:14:46 PM" readonly style="background: #FFFACD;">
-                    <div style="height: 20px;"></div>
-                    <div style="height: 40px;"></div>
-                    <input type="text" value="4610149750" style="background: #FFFACD;">
-                    <input type="text" value="LHJ 750 WITH V/A METER" style="background: #FFFACD;">
-                    <input type="text" value="E00152597353" style="background: #FFFACD;">
-                    <input type="text" placeholder="" style="background: #FFFACD;">
-                    <div style="height: 20px;"></div>
-                    <div style="height: 40px;"></div>
-                    <input type="text" value="IN00446" style="background: #FFFACD;">
-                    <input type="text" value="ASSOCIATED INDUSTRIES AND TRADING CO" style="background: #FFFACD;">
-                    <input type="number" value="2" style="background: #FFFACD;">
-                    <select><option selected>Piece</option></select>
-                    <select><option>Yes</option><option selected>No</option></select>
-                    <select><option selected>Functional - PC Issues</option></select>
-                    <select><option selected>Burnt component</option></select>
-                    <select><option selected>BIN - India</option></select>
-                    <input type="text" placeholder="" style="background: #FFFACD;">
+                <div style="grid-column: 1/-1; height: 20px;"></div>
+                <div style="grid-column: 1/-1;" class="form-section-label">⚠ GIN / Part Number</div>
+
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label" style="color: #d32f2f;">GIN / Part Number:</label>
+                    <input type="text" value="4610149750" class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Description:</label>
+                    <input type="text" value="LHJ 750 WITH V/A METER" class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label" style="color: #d32f2f;">Serial Number:</label>
+                    <input type="text" value="E00152597353" class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Add parts sent for repair:</label>
+                    <input type="text" class="ticket-form-input">
                 </div>
 
-                <!-- RIGHT: Requested Information -->
-                <div class="ticket-right-section">
-                    <div class="form-section-label" style="color: #333; background: white; border-left: 4px solid #666;">📋 Requested Information</div>
+                <div style="grid-column: 1/-1; height: 20px;"></div>
+                <div style="grid-column: 1/-1;" class="form-section-label">⚠ Customer Number</div>
 
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px;">Complaint Owner:</div>
-                    <input type="text" value="Administrator" readonly style="width: 100%; padding: 8px; background: #FFFACD; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label" style="color: #d32f2f;">Customer Number:</label>
+                    <input type="text" value="IN00446" class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Customer:</label>
+                    <input type="text" value="ASSOCIATED INDUSTRIES" class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label" style="color: #d32f2f;">Total Quantity Claimed:</label>
+                    <input type="number" value="2" class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Unit of Measure:</label>
+                    <select class="ticket-form-input"><option selected>Piece</option></select>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label" style="color: #d32f2f;">Out of the Box Failure:</label>
+                    <select class="ticket-form-input"><option>Yes</option><option selected>No</option></select>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Issue:</label>
+                    <select class="ticket-form-input"><option selected>Functional - PC Issues</option></select>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Issue Detail:</label>
+                    <select class="ticket-form-input"><option selected>Burnt component</option></select>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Business Unit:</label>
+                    <select class="ticket-form-input"><option selected>BIN - India</option></select>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Purchase Order:</label>
+                    <input type="text" class="ticket-form-input">
+                </div>
+            </div>
 
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px;">Assigned To:</div>
-                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #FFFACD; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
-
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px;">QA Coordinator:</div>
-                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #FFFACD; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
-
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px; color: #d32f2f;">Type of Issue:</div>
-                    <select style="width: 100%; padding: 8px; background: #FFFACD; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
-                        <option selected>ESAB Product Quality Issue</option>
-                    </select>
-
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Request RMA:</div>
-                    <div class="radio-group" style="margin-bottom: 12px;">
-                        <label><input type="radio" name="requestRMA"> Yes</label>
-                        <label><input type="radio" name="requestRMA" checked> No</label>
-                    </div>
-
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Customer Requires CAB/BD</div>
-                    <div class="radio-group" style="margin-bottom: 12px;">
-                        <label><input type="radio" name="customerRequires"> Yes</label>
-                        <label><input type="radio" name="customerRequires" checked> No</label>
-                    </div>
-
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px;">Date of Sale:</div>
-                    <input type="date" style="width: 100%; padding: 8px; background: #FFFACD; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
-
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px;">Credit Note:</div>
-                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #FFFACD; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
-
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px;">Shipment Number:</div>
-                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #FFFACD; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
-
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px;">Order Number:</div>
-                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #FFFACD; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
-
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">External Customer:</div>
-                    <div class="radio-group" style="margin-bottom: 12px;">
-                        <label><input type="radio" name="externalCustomer"> Yes</label>
-                        <label><input type="radio" name="externalCustomer" checked> No</label>
-                    </div>
-
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px;">Reason Code:</div>
-                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #FFFACD; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
-
-                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 6px;">Return / RMA Number</div>
-                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #FFFACD; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
+            <div class="ticket-right-info">
+                <div class="form-section-label">📋 Requested Information</div>
+                <div class="ticket-info-group">
+                    <label>Complaint Owner:</label>
+                    <div class="ticket-info-value">Administrator</div>
+                </div>
+                <div class="ticket-info-group">
+                    <label>Assigned To:</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="ticket-info-group">
+                    <label>QA Coordinator:</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="ticket-info-group">
+                    <label style="color: #d32f2f;">Type of Issue:</label>
+                    <select><option selected>ESAB Product Quality Issue</option></select>
+                </div>
+                <div class="ticket-info-group">
+                    <label>Request RMA:</label>
+                    <div class="radio-group"><label><input type="radio" name="requestRMA"> Yes</label><label><input type="radio" name="requestRMA" checked> No</label></div>
+                </div>
+                <div class="ticket-info-group">
+                    <label>Customer Requires CAB/BD:</label>
+                    <div class="radio-group"><label><input type="radio" name="customerReq"> Yes</label><label><input type="radio" name="customerReq" checked> No</label></div>
+                </div>
+                <div class="ticket-info-group">
+                    <label>Date of Sale:</label>
+                    <input type="date">
+                </div>
+                <div class="ticket-info-group">
+                    <label>Credit Note:</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="ticket-info-group">
+                    <label>Shipment Number:</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="ticket-info-group">
+                    <label>Order Number:</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="ticket-info-group">
+                    <label>External Customer:</label>
+                    <div class="radio-group"><label><input type="radio" name="extCust"> Yes</label><label><input type="radio" name="extCust" checked> No</label></div>
+                </div>
+                <div class="ticket-info-group">
+                    <label>Reason Code:</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="ticket-info-group">
+                    <label>Return / RMA Number:</label>
+                    <input type="text" placeholder="">
                 </div>
             </div>
 
