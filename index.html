@@ -1802,7 +1802,7 @@
     <div id="newClaimFormScreen" class="container hidden" style="margin-top: 30px;">
         <button class="back-btn" onclick="goToDashboard()">← Back to Dashboard</button>
         <div style="position: relative;">
-            <div class="title" id="newClaimTitle">🔴 RED TEST DEPLOYMENT - FIELDS SHOULD BE VERTICAL 🔴</div>
+            <div class="title" id="newClaimTitle">New Claim - Product Quality Issue</div>
             <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
         </div>
 
@@ -1818,58 +1818,82 @@
 
         <!-- New Ticket Details Tab -->
         <div id="newTicketDetailsTab" class="tab-content active">
-            <div class="new-claim-form-container">
-                <!-- LEFT: Labels -->
-                <div class="left-labels">
-                    <div class="form-section-label">⚠ Required Information</div>
-                    <div class="left-labels-item">Complaint Number:</div>
-                    <div class="left-labels-item">Urgency Level:</div>
-                    <div class="left-labels-item">Status:</div>
-                    <div class="left-labels-item">Created:</div>
-                    <div style="height: 16px;"></div>
-                    <div class="form-section-label">⚠ GIN / Part Number</div>
-                    <div class="left-labels-item">GIN / Part Number:</div>
-                    <div class="left-labels-item">Description</div>
-                    <div class="left-labels-item">Serial Number</div>
-                    <div class="left-labels-item">Add parts sent for repair</div>
-                    <div style="height: 16px;"></div>
-                    <div class="form-section-label">⚠ Customer Number</div>
-                    <div class="left-labels-item">Customer Number:</div>
-                    <div class="left-labels-item">Customer:</div>
-                    <div class="left-labels-item">Total Quantity Claimed</div>
-                    <div class="left-labels-item">Unit of Measure</div>
-                    <div class="left-labels-item">Out of the Box Failure:</div>
-                    <div class="left-labels-item">Issue:</div>
-                    <div class="left-labels-item">Issue Detail:</div>
-                    <div class="left-labels-item">Business Unit:</div>
-                    <div class="left-labels-item">Purchase Order</div>
-                </div>
-
-                <!-- CENTER: Input Fields -->
-                <div class="center-inputs">
-                    <div class="form-row-3col">
-                        <input type="text" value="Auto-generated" readonly style="background: #FFFACD;">
-                        <select style="background: #FFFACD;"><option>Select a Level</option></select>
+            <div class="new-claim-form-container" style="display: grid; grid-template-columns: 1fr 300px; gap: 20px;">
+                <!-- LEFT: Form Fields as Individual Boxes -->
+                <div class="ticket-form-grid" style="margin: 0;">
+                    <div class="form-section-label" style="grid-column: 1/-1;">⚠ Required Information</div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Complaint Number:</label>
+                        <input type="text" value="Auto-generated" readonly class="ticket-form-input">
                     </div>
-                    <div class="form-row-3col">
-                        <select style="background: #FFFACD;"><option>Draft</option></select>
-                        <input type="text" value="6/23/2026 11:36:09 PM" readonly style="background: #FFFACD;">
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Urgency Level:</label>
+                        <select class="ticket-form-input"><option>Select a Level</option></select>
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Status:</label>
+                        <select class="ticket-form-input"><option>Draft</option></select>
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Created:</label>
+                        <input type="text" value="6/23/2026 11:36:09 PM" readonly class="ticket-form-input">
                     </div>
 
-                    <input type="text" placeholder="" style="background: #FFFACD;">
-                    <input type="text" placeholder="" style="background: #FFFACD;">
-                    <input type="text" placeholder="" style="background: #FFFACD;">
-                    <input type="text" placeholder="" style="background: #FFFACD;">
+                    <div class="form-section-label" style="grid-column: 1/-1; margin-top: 12px;">⚠ GIN / Part Number</div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">GIN / Part Number:</label>
+                        <input type="text" placeholder="" class="ticket-form-input">
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Description:</label>
+                        <input type="text" placeholder="" class="ticket-form-input">
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Serial Number:</label>
+                        <input type="text" placeholder="" class="ticket-form-input">
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Add parts sent for repair:</label>
+                        <input type="text" placeholder="" class="ticket-form-input">
+                    </div>
 
-                    <input type="text" placeholder="" style="background: #FFFACD;">
-                    <input type="text" placeholder="" style="background: #FFFACD;">
-                    <input type="number" value="" style="background: #FFFACD;">
-                    <select style="background: #FFFACD;"><option>EACH</option></select>
-                    <select style="background: #FFFACD;"><option>Select an option</option></select>
-                    <select style="background: #FFFACD;"><option>Issue</option></select>
-                    <select style="background: #FFFACD;"><option>Issue Detail</option></select>
-                    <select style="background: #FFFACD;"><option>Select</option></select>
-                    <input type="text" placeholder="" style="background: #FFFACD;">
+                    <div class="form-section-label" style="grid-column: 1/-1; margin-top: 12px;">⚠ Customer Number</div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Customer Number:</label>
+                        <input type="text" placeholder="" class="ticket-form-input">
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Customer:</label>
+                        <input type="text" placeholder="" class="ticket-form-input">
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Total Quantity Claimed:</label>
+                        <input type="number" placeholder="" class="ticket-form-input">
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Unit of Measure:</label>
+                        <select class="ticket-form-input"><option>EACH</option></select>
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Out of the Box Failure:</label>
+                        <select class="ticket-form-input"><option>Select an option</option></select>
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Issue:</label>
+                        <select class="ticket-form-input"><option>Issue</option></select>
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Issue Detail:</label>
+                        <select class="ticket-form-input"><option>Issue Detail</option></select>
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Business Unit:</label>
+                        <select class="ticket-form-input"><option>Select</option></select>
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Purchase Order:</label>
+                        <input type="text" placeholder="" class="ticket-form-input">
+                    </div>
                 </div>
 
                 <!-- RIGHT: Requested Information -->
