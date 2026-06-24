@@ -3037,16 +3037,30 @@
     }
 
     function showUserClaimsTable() {
-        // Hide home screen and show claims table
-        document.getElementById('homeScreen').classList.add('hidden');
-        document.getElementById('claimsTable').classList.remove('hidden');
-        document.getElementById('ticketDetails').classList.add('hidden');
-        populateClaimsTable();
+        try {
+            const homeScreen = document.getElementById('homeScreen');
+            const claimsTable = document.getElementById('claimsTable');
+
+            if (homeScreen) homeScreen.style.display = 'none';
+            if (claimsTable) {
+                claimsTable.style.display = 'block';
+                populateClaimsTable();
+            }
+        } catch(e) {
+            console.error('Error showing claims table:', e);
+        }
     }
 
     function goBackToDashboard() {
-        document.getElementById('homeScreen').classList.remove('hidden');
-        document.getElementById('claimsTable').classList.add('hidden');
+        try {
+            const homeScreen = document.getElementById('homeScreen');
+            const claimsTable = document.getElementById('claimsTable');
+
+            if (homeScreen) homeScreen.style.display = 'flex';
+            if (claimsTable) claimsTable.style.display = 'none';
+        } catch(e) {
+            console.error('Error going back to dashboard:', e);
+        }
     }
 
     function populateClaimsTable() {
