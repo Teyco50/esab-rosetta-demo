@@ -1165,9 +1165,201 @@
         #claimsTableBody tr:nth-child(even) {
             background: #f5f5f5;
         }
+
+        /* DASHBOARD HOME SCREEN */
+        .home-screen {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .home-screen.active {
+            display: flex;
+        }
+        .home-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #ffed4e 100%);
+            padding: 40px;
+            color: #000;
+            box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+        }
+        .home-header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        .home-header p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        .home-content {
+            flex: 1;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-content: start;
+        }
+        .kpi-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        .kpi-card h3 {
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+        .kpi-card .kpi-value {
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        .kpi-card .kpi-detail {
+            font-size: 12px;
+            color: #999;
+        }
+        .world-map-section {
+            grid-column: 1 / -1;
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .world-map-section h2 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .world-map-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .region-legend {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .region-item {
+            text-align: center;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+        .region-item .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 0 auto 8px;
+        }
+        .region-item span {
+            font-size: 12px;
+            color: #666;
+        }
     </style>
 </head>
 <body>
+
+<!-- HOME DASHBOARD SCREEN -->
+<div id="homeScreen" class="home-screen">
+    <div class="home-header">
+        <h1>¡Bienvenido a ESAB Rosetta!</h1>
+        <p id="welcomeUser">Support Team</p>
+    </div>
+    <div class="home-content">
+        <!-- KPI Cards -->
+        <div class="kpi-card">
+            <h3>Mis Claims Abiertos</h3>
+            <div class="kpi-value" id="openClaimsCount">5</div>
+            <div class="kpi-detail">Claims activos en proceso</div>
+        </div>
+        <div class="kpi-card">
+            <h3>Mis Claims Cerrados</h3>
+            <div class="kpi-value" id="closedClaimsCount">15</div>
+            <div class="kpi-detail">Completados este período</div>
+        </div>
+        <div class="kpi-card">
+            <h3>Acumulado al Año</h3>
+            <div class="kpi-value" id="yearAccumulator">23</div>
+            <div class="kpi-detail">Total de claims procesados</div>
+        </div>
+
+        <!-- World Map Section -->
+        <div class="world-map-section">
+            <h2>📍 Claims por Región</h2>
+            <div class="world-map-container">
+                <svg viewBox="0 0 1000 600" style="width: 100%; max-width: 900px; height: auto;">
+                    <!-- Simplified World Map with regions -->
+                    <!-- North America -->
+                    <ellipse cx="200" cy="200" rx="80" ry="100" fill="#FFE5CC" stroke="#999" stroke-width="2" opacity="0.7"/>
+                    <!-- South America -->
+                    <ellipse cx="250" cy="400" rx="60" ry="80" fill="#FFD4B3" stroke="#999" stroke-width="2" opacity="0.7"/>
+                    <!-- Europe -->
+                    <ellipse cx="450" cy="180" rx="70" ry="60" fill="#FFD700" stroke="#999" stroke-width="2" opacity="0.8"/>
+                    <!-- Africa -->
+                    <ellipse cx="500" cy="350" rx="60" ry="90" fill="#FFC700" stroke="#999" stroke-width="2" opacity="0.8"/>
+                    <!-- Asia -->
+                    <ellipse cx="650" cy="250" rx="120" ry="100" fill="#FFB700" stroke="#999" stroke-width="2" opacity="0.8"/>
+                    <!-- Australia -->
+                    <ellipse cx="750" cy="420" rx="50" ry="60" fill="#FFAD00" stroke="#999" stroke-width="2" opacity="0.7"/>
+
+                    <!-- Region Labels -->
+                    <text x="200" y="210" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">N. América</text>
+                    <text x="250" y="410" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">S. América</text>
+                    <text x="450" y="185" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">Europa</text>
+                    <text x="500" y="355" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">África</text>
+                    <text x="650" y="260" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">Asia</text>
+                    <text x="750" y="425" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">Oceanía</text>
+                </svg>
+            </div>
+            <div class="region-legend">
+                <div class="region-item">
+                    <div class="color-dot" style="background: #FFE5CC;"></div>
+                    <span>N. América: 8</span>
+                </div>
+                <div class="region-item">
+                    <div class="color-dot" style="background: #FFD4B3;"></div>
+                    <span>S. América: 4</span>
+                </div>
+                <div class="region-item">
+                    <div class="color-dot" style="background: #FFD700;"></div>
+                    <span>Europa: 6</span>
+                </div>
+                <div class="region-item">
+                    <div class="color-dot" style="background: #FFC700;"></div>
+                    <span>África: 2</span>
+                </div>
+                <div class="region-item">
+                    <div class="color-dot" style="background: #FFB700;"></div>
+                    <span>Asia: 5</span>
+                </div>
+                <div class="region-item">
+                    <div class="color-dot" style="background: #FFAD00;"></div>
+                    <span>Oceanía: 3</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Logout Button -->
+        <div style="grid-column: 1 / -1; text-align: center; margin-top: 20px;">
+            <button class="btn-login primary" onclick="logout()" style="background: #ef4444;">Logout</button>
+        </div>
+    </div>
+</div>
 
 <!-- LOGIN SCREEN -->
 <div id="loginScreen" class="login-screen">
@@ -2544,16 +2736,37 @@
         const password = document.getElementById('password').value;
         if (username && password) {
             document.getElementById('loginScreen').classList.add('hidden');
-            document.getElementById('appScreen').classList.remove('hidden');
-            document.getElementById('userDisplay').textContent = 'Welcome, ' + username.charAt(0).toUpperCase() + username.slice(1);
+            document.getElementById('homeScreen').classList.add('active');
+
+            // Update welcome message
+            const userNameParts = username.split('@')[0].split('.');
+            const displayName = userNameParts.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
+            document.getElementById('welcomeUser').textContent = displayName;
+
+            // Calculate KPIs
+            updateDashboardKPIs();
         }
     }
 
     function logout() {
-        document.getElementById('appScreen').classList.add('hidden');
+        document.getElementById('homeScreen').classList.remove('active');
         document.getElementById('loginScreen').classList.remove('hidden');
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
+    }
+
+    function updateDashboardKPIs() {
+        // Calculate open claims
+        const openClaims = claimsData.filter(c => c.status === 'Open').length;
+        document.getElementById('openClaimsCount').textContent = openClaims;
+
+        // Calculate closed claims
+        const closedClaims = claimsData.filter(c => c.status === 'Closed').length;
+        document.getElementById('closedClaimsCount').textContent = closedClaims;
+
+        // Total claims (year accumulator)
+        const totalClaims = claimsData.length;
+        document.getElementById('yearAccumulator').textContent = totalClaims;
     }
 
     function toggleDropdown(el) {
