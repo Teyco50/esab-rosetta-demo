@@ -3041,9 +3041,9 @@
             const homeScreen = document.getElementById('homeScreen');
             const claimsTable = document.getElementById('claimsTable');
 
-            if (homeScreen) homeScreen.style.display = 'none';
+            if (homeScreen) homeScreen.classList.add('hidden');
             if (claimsTable) {
-                claimsTable.style.display = 'block';
+                claimsTable.classList.remove('hidden');
                 populateClaimsTable();
             }
         } catch(e) {
@@ -3056,8 +3056,8 @@
             const homeScreen = document.getElementById('homeScreen');
             const claimsTable = document.getElementById('claimsTable');
 
-            if (homeScreen) homeScreen.style.display = 'flex';
-            if (claimsTable) claimsTable.style.display = 'none';
+            if (homeScreen) homeScreen.classList.remove('hidden');
+            if (claimsTable) claimsTable.classList.add('hidden');
         } catch(e) {
             console.error('Error going back to dashboard:', e);
         }
