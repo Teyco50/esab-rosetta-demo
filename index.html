@@ -296,7 +296,718 @@
             transform-origin: left;
         }
 
+        /* HEADER */
+        .header {
+            background: linear-gradient(90deg, rgba(26,26,46,0.95) 0%, rgba(44,62,90,0.95) 50%, rgba(26,26,46,0.95) 100%);
+            backdrop-filter: blur(10px);
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            border-bottom: 2px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .header-left { display: flex; align-items: center; gap: 20px; }
+        .logo {
+            width: 54px;
+            height: 54px;
+            background: linear-gradient(135deg, var(--primary) 0%, #ffed4e 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 24px;
+            color: #000;
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .logo:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4); }
+        .company-info h1 {
+            font-size: 20px;
+            color: var(--primary);
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .company-info p {
+            font-size: 11px;
+            color: #888;
+            margin: 0;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        .nav-menu a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+            position: relative;
+            padding: 6px 0;
+        }
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .nav-menu a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        #userDisplay {
+            color: #888;
+            font-size: 11px !important;
+            font-weight: 500 !important;
+        }
+        .logout-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, #ffed4e 100%);
+            color: #000;
+            padding: 11px 22px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 11px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
+        }
+
+        /* DROPDOWN */
+        .dropdown { position: relative; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+            border-radius: 8px;
+            top: 40px;
+            left: -20px;
+            z-index: 1000;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+        .dropdown-content a {
+            color: #2c3e50;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            font-weight: 500;
+            font-size: 13px;
+        }
+        .dropdown-content a:hover {
+            background: #f8f9fa;
+            border-left-color: var(--primary);
+            padding-left: 20px;
+            color: #1a1a1a;
+        }
+        .dropdown.active .dropdown-content { display: block; }
+
+        /* MAIN */
+        .container {
+            max-width: 1400px;
+            margin: 35px auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.5);
+            overflow: hidden;
+            animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .title {
+            font-size: 38px;
+            font-weight: 900;
+            color: #000;
+            padding: 42px 40px;
+            background: linear-gradient(90deg, var(--primary) 0%, #ffed4e 50%, var(--primary) 100%);
+            border-bottom: 3px solid #000;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .title::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(0,0,0,0.05) 100%);
+            pointer-events: none;
+        }
+
+        /* SECTIONS */
+        .sections {
+            padding: 40px 40px;
+            background: linear-gradient(135deg, #fafbfc 0%, #f5f7fa 100%);
+            border-radius: 12px;
+            margin: 0 40px;
+        }
+        .section-item {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,249,250,0.95) 100%);
+            color: #1a1a1a;
+            padding: 22px 28px;
+            margin: 14px 0;
+            cursor: pointer;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            font-weight: 700;
+            border-left: 4px solid var(--primary);
+            font-size: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        .section-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(255,215,0,0) 0%, rgba(255,215,0,0.05) 50%, rgba(255,215,0,0) 100%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .section-item:hover {
+            transform: translateX(6px) translateY(-2px);
+            box-shadow: 0 12px 32px rgba(255, 215, 0, 0.15);
+            border-left-color: #ffed4e;
+        }
+        .section-item:hover::before {
+            opacity: 1;
+        }
+
+        /* TABS */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e5e7eb;
+            background: linear-gradient(90deg, #fafbfc 0%, #f5f7fa 100%);
+            overflow-x: auto;
+        }
+        .tab {
+            padding: 18px 28px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 13px;
+            border: none;
+            background: none;
+            color: #888;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .tab:hover {
+            color: #1a1a1a;
+            background: rgba(255, 215, 0, 0.08);
+        }
+        .tab.active {
+            color: #000;
+            background: linear-gradient(90deg, var(--primary) 0%, #ffed4e 100%);
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.25);
+        }
+        .tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: transparent;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .tab.active::after {
+            background: #000;
+            transform: scaleX(1);
+        }
+
+        /* TABLE */
+        .table-wrapper { overflow-x: auto; padding: 0 40px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+        th {
+            background: linear-gradient(90deg, #f8f9fa 0%, #f0f2f5 100%);
+            color: #1a1a1a;
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 700;
+            position: sticky;
+            top: 0;
+            font-size: 10px;
+            border-bottom: 2px solid var(--primary);
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #2c3e50;
+            transition: all 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        tr:hover {
+            background: linear-gradient(90deg, rgba(255,215,0,0.03) 0%, rgba(255,215,0,0.05) 100%);
+        }
+        table tbody tr td:first-child {
+            width: 25px;
+            text-align: center;
+        }
+        table tbody tr td:nth-child(2) {
+            max-width: 110px;
+        }
+        table tbody tr td:nth-child(3) {
+            max-width: 100px;
+        }
+        table tbody tr td:nth-child(4) {
+            max-width: 70px;
+        }
+        table tbody tr td:nth-child(5) {
+            max-width: 70px;
+        }
+        table tbody tr td:nth-child(6) {
+            max-width: 70px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 11px;
+            border: none;
+        }
+        .status-submitted {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status-pending {
+            background: #fed7aa;
+            color: #92400e;
+        }
+        .status-in-progress {
+            background: #bfdbfe;
+            color: #1e40af;
+        }
+
+        /* FORMS */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 20px 0;
+        }
+        .form-row.full { grid-template-columns: 1fr; }
+        .form-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+
+        .form-field { display: flex; flex-direction: column; }
+        .form-field label {
+            background: linear-gradient(90deg, #fff9e6 0%, #fffacd 100%);
+            padding: 12px 16px;
+            font-weight: 800;
+            color: #1a1a1a;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            background: linear-gradient(135deg, #f8f9fa 0%, #f5f7fa 100%);
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 13px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #2c3e50;
+            font-weight: 500;
+        }
+        .form-field input:focus,
+        .form-field select:focus,
+        .form-field textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.12), 0 4px 12px rgba(255, 215, 0, 0.15);
+        }
+        .form-field textarea { min-height: 120px; resize: vertical; }
+
+        .section-title {
+            background: linear-gradient(90deg, #f8f9fa 0%, #f0f2f5 100%);
+            padding: 12px 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 20px 0 15px 0;
+            border-left: 4px solid var(--primary);
+            border-radius: 6px;
+            font-size: 12px;
+        }
+
+        .required-label { color: #dc143c; font-weight: bold; }
+
+        /* BUTTONS */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: inline-block;
+        }
+        .btn-group { display: flex; gap: 12px; margin-top: 30px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+        }
+        .btn-warning {
+            background: linear-gradient(135deg, var(--primary) 0%, #ffed4e 100%);
+            color: #000;
+            border: none;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+        .btn-small { padding: 9px 16px; font-size: 11px; }
+        .btn-info {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+        }
+        .btn-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+        }
+
+        .file-upload {
+            border: 2px dashed #ffd700;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            background: #fffef9;
+            cursor: pointer;
+        }
+
         .hidden { display: none !important; }
+        .back-btn {
+            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+            color: #1a1a1a;
+            padding: 12px 22px;
+            border: none;
+            cursor: pointer;
+            margin: 20px 40px 0;
+            border-radius: 6px;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+        .download-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, #ffed4e 100%);
+            color: #000;
+            padding: 12px 22px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            border-radius: 6px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .tab-content { display: none; padding: 40px; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .info-box {
+            background: linear-gradient(90deg, #fffbeb 0%, #fef3c7 100%);
+            padding: 14px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+            font-weight: 600;
+            font-size: 13px;
+            color: #92400e;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 18px 0;
+            flex-wrap: wrap;
+        }
+
+        .badge-red {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 11px;
+            border-left: 3px solid #ef4444;
+        }
+        .badge-yellow {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 11px;
+            border-left: 3px solid #fbbf24;
+        }
+        .badge-blue {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 7px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 11px;
+            border-left: 3px solid #3b82f6;
+        }
+
+        /* NEW CLAIM SCREENS */
+        .claim-options-container {
+            padding: 50px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .claim-option-card {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.95) 0%, rgba(255, 237, 74, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            padding: 48px 42px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 16px 48px rgba(255, 215, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .claim-option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .claim-option-card::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: -40px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(0,0,0,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .claim-option-card:hover {
+            transform: translateY(-8px) translateX(4px);
+            box-shadow: 0 24px 60px rgba(255, 215, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.4);
+        }
+        .claim-option-card h3 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            color: #1a1a1a;
+            letter-spacing: 0.5px;
+            position: relative;
+            z-index: 2;
+        }
+        .claim-option-card p {
+            font-size: 14px;
+            color: #2c3e50;
+            line-height: 1.8;
+            margin-bottom: 28px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+        .claim-option-card .go-to-form {
+            color: #000;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .claim-option-card .go-to-form::after {
+            content: '→';
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .claim-option-card:hover .go-to-form::after {
+            transform: translateX(4px);
+        }
+
+        /* NEW CLAIM FORM */
+        .new-claim-form-container {
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            display: grid;
+            grid-template-columns: 220px 1fr 320px;
+            gap: 28px;
+            margin: 20px 40px;
+            border: 1px solid #e5e7eb;
+        }
+        .form-section-label {
+            font-weight: 700;
+            color: #991b1b;
+            padding: 11px 13px;
+            background: #fee2e2;
+            border-radius: 6px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            border-left: 3px solid #ef4444;
+        }
+        .left-labels {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .left-labels-item {
+            font-weight: 700;
+            font-size: 12px;
+            color: #333;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 0;
+            border-left: 2px solid #ddd;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .center-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .right-section {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 0;
+            border: 2px solid #e0e0e0;
+        }
+        .form-row-3col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
@@ -306,46 +1017,994 @@
     <div class="login-container">
         <div class="login-left">
             <div class="login-logo-large">E</div>
-            <h1>ESAB ROSETTA</h1>
-            <h2>CLAIMS MANAGEMENT</h2>
-            <p>Advanced Claims Management System for Global Manufacturing Excellence</p>
-
-            <form onsubmit="login(event)" style="width: 100%;">
-                <div class="form-group">
-                    <label for="username">👤</label>
-                    <input type="text" id="username" placeholder="Email" value="support@esabrosetta.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="password">🔐</label>
-                    <input type="password" id="password" placeholder="Password" value="esabqa123">
-                </div>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" id="remember">
-                    <label for="remember">Remember me</label>
-                </div>
-
-                <div class="login-buttons">
-                    <button type="button" class="btn-login" onclick="alert('Demo')">Cancel</button>
-                    <button type="submit" class="btn-login primary">Sign In</button>
-                </div>
-            </form>
-
+            <h1>ESAB ROSETTA LOGIN</h1>
+            <div class="form-group">
+                <label for="username">✉</label>
+                <input type="text" id="username" placeholder="support@esabrosetta.com" value="support@esabrosetta.com">
+            </div>
+            <div class="form-group">
+                <label for="password">🔐</label>
+                <input type="password" id="password" placeholder="••••••••" value="demo">
+            </div>
+            <div style="margin-bottom: 28px;">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: #fff;">
+                    <input type="checkbox" id="remember" style="width: 16px; height: 16px; cursor: pointer;">
+                    <span>Remember me next time</span>
+                </label>
+            </div>
+            <div class="login-buttons">
+                <button class="btn-login" onclick="login()">Login</button>
+                <button class="btn-login primary" onclick="alert('Single Sign-On')">Single Sign-On</button>
+            </div>
             <div class="login-footer">
-                <a href="#">Help</a>
-                <a href="#">Support</a>
-                <a href="#">Privacy</a>
+                <a onclick="alert('Register')">Register</a>
+                <a onclick="alert('Forgot Password?')">Forgot Password?</a>
+                <a onclick="alert('Support')">Support</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- APP SCREEN -->
+<div id="appScreen" class="hidden">
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-left">
+            <div class="logo">E</div>
+            <div class="company-info">
+                <h1>ESAB ROSETTA</h1>
+                <p>Claims Management Platform</p>
+            </div>
+        </div>
+        <div class="nav-menu">
+            <a onclick="goToDashboard()">Home</a>
+            <div class="dropdown" onclick="toggleDropdown(this)">
+                <a>Claim ▼</a>
+                <div class="dropdown-content">
+                    <a onclick="showClaimTypes()">New Claim</a>
+                    <a onclick="alert('Interface Module')">Interface Module Management</a>
+                    <a onclick="alert('Auto Close')">Auto Close Ticket</a>
+                    <a onclick="alert('Search')">Search - Edit Claim</a>
+                </div>
+            </div>
+            <div class="dropdown" onclick="toggleDropdown(this)">
+                <a>Catálogos ▼</a>
+                <div class="dropdown-content">
+                    <a onclick="alert('Customer Contacts')">Customer Contacts</a>
+                    <a onclick="alert('MFGS Sites')">MFGS Sites</a>
+                    <a onclick="alert('Distributors')">Distributors</a>
+                    <a onclick="alert('Units')">Units</a>
+                    <a onclick="alert('Users')">Users</a>
+                    <a onclick="alert('Root Causes')">Root Causes</a>
+                    <a onclick="alert('Type Of Issues')">Type Of Issues</a>
+                    <a onclick="alert('Products')">Products</a>
+                    <a onclick="alert('Regions')">Regions</a>
+                    <a onclick="alert('Activate Users')">Activate Users</a>
+                    <a onclick="alert('Issue - Issue Detail')">Issue - Issue Detail</a>
+                    <a onclick="alert('Sign Out Users')">Sign Out Users</a>
+                </div>
+            </div>
+            <a>Project Identifier ▼</a>
+            <a>Reports ▼</a>
+            <a>Support ▼</a>
+            <a id="userDisplay">Welcome, Administrator</a>
+            <button class="logout-btn" onclick="logout()">LogOut</button>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="container">
+        <div class="title">Claims Summary</div>
+        <div class="sections">
+            <div class="section-item" onclick="toggleSection(this)">
+                <span>✓ All Claims (only current year Claims)</span>
+                <span>▼</span>
+            </div>
+            <div class="section-item" onclick="toggleSection(this)">
+                <span>✓ My Assigned Tasks</span>
+                <span>▼</span>
+            </div>
+            <div class="section-item" onclick="toggleSection(this)">
+                <span>✓ My Claims</span>
+                <span>▼</span>
+            </div>
+            <div class="section-item" onclick="toggleSection(this)">
+                <span>✓ Claims Assigned to Me</span>
+                <span>▼</span>
+            </div>
+        </div>
+        <div style="padding: 0 40px 40px;">
+            <button class="btn btn-primary" onclick="showClaimsTable()" style="width: 100%; padding: 16px;">View All Claims</button>
+        </div>
+    </div>
+
+    <!-- CLAIMS TABLE -->
+    <div id="claimsTable" class="container hidden">
+        <button class="back-btn" onclick="goToDashboard()">← Back to Dashboard</button>
+        <div style="position: relative;">
+            <div class="title">All Claims</div>
+            <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30px;"></th>
+                        <th>Claim Type</th>
+                        <th>Claim ID</th>
+                        <th>Status</th>
+                        <th>Site</th>
+                        <th>Product</th>
+                        <th>Reported By</th>
+                        <th>Assigned To</th>
+                        <th>QA Coordinator</th>
+                        <th>Time Elapsed</th>
+                        <th>RMA Num.</th>
+                        <th>Invoice</th>
+                        <th>Shipment Num.</th>
+                        <th>Credit Note</th>
+                        <th>Tasks</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="claimsTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TICKET DETAILS -->
+    <div id="ticketDetails" class="container hidden">
+        <button class="back-btn" onclick="goToDashboard()">← Back to Dashboard</button>
+        <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(this, 'ticketDetailsTab')">Ticket Details</button>
+            <button class="tab" onclick="switchTab(this, 'analysisTab')">Analysis</button>
+            <button class="tab" onclick="switchTab(this, 'correctiveActionTab')">Corrective Action</button>
+            <button class="tab" onclick="switchTab(this, 'customerNotificationTab')">Customer Notification</button>
+            <button class="tab" onclick="switchTab(this, 'assignedTasksTab')">Assigned Tasks</button>
+            <button class="tab" onclick="switchTab(this, 'datesHistoryTab')">Dates & History</button>
+            <button class="tab" onclick="switchTab(this, 'generalCommentsTab')">General Comments</button>
+        </div>
+
+        <!-- Ticket Details Tab -->
+        <div id="ticketDetailsTab" class="tab-content active">
+            <div class="section-title">Required Information</div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label><span class="required-label">*</span> Complaint Number</label>
+                    <input type="text" value="2606232014536" readonly style="background: #FFFACD;">
+                </div>
+                <div class="form-field">
+                    <label><span class="required-label">*</span> Urgency Level</label>
+                    <select>
+                        <option selected>Immediate Action Necessary</option>
+                        <option>High</option>
+                        <option>Medium</option>
+                        <option>Low</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Status</label>
+                    <input type="text" value="Submitted" readonly style="background: #FFFACD;">
+                </div>
+                <div class="form-field">
+                    <label><span class="badge-red">Assigned To</span></label>
+                    <input type="text" value="Harisadhan Mandal" readonly style="background: #FFFACD;">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Sample Receiving Date:</label>
+                    <input type="date">
+                </div>
+                <div class="form-field">
+                    <label>Created:</label>
+                    <input type="text" value="6/23/2026 8:14:46 PM" readonly style="background: #FFFACD;">
+                </div>
+            </div>
+
+            <div class="section-title">GIN / Part Number</div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label><span class="required-label">*</span> GIN / Part Number</label>
+                    <input type="text" value="4610149750" style="background: #FFFACD;">
+                </div>
+                <div class="form-field">
+                    <label>Description</label>
+                    <input type="text" value="LHJ 750 WITH V/A METER" style="background: #FFFACD;">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Serial Number</label>
+                    <input type="text" value="E00152597353" style="background: #FFFACD;">
+                </div>
+                <div class="form-field">
+                    <label>View parts sent for repair</label>
+                    <input type="text" placeholder="Link or reference" style="background: #FFFACD;">
+                </div>
+            </div>
+
+            <div class="section-title">Customer Number</div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label><span class="required-label">*</span> Customer Number</label>
+                    <input type="text" value="IN00446" style="background: #FFFACD;">
+                </div>
+                <div class="form-field">
+                    <label>Customer</label>
+                    <input type="text" value="ASSOCIATED INDUSTRIES AND TRADING CO" style="background: #FFFACD;">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label><span class="required-label">*</span> Total Quantity Claimed</label>
+                    <input type="number" value="2" style="background: #FFFACD;">
+                </div>
+                <div class="form-field">
+                    <label><span class="required-label">*</span> Unit of Measure</label>
+                    <select>
+                        <option selected>Piece</option>
+                        <option>KG</option>
+                        <option>Meter</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section-title">Issue Information</div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Out of Box Failure</label>
+                    <select>
+                        <option>Yes</option>
+                        <option selected>No</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label>Issue</label>
+                    <select>
+                        <option selected>Functional - PC Issues</option>
+                        <option>Physical Damage</option>
+                        <option>Missing Parts</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row full">
+                <div class="form-field">
+                    <label>Issue Detail</label>
+                    <select>
+                        <option selected>Burnt component</option>
+                        <option>Wrong component</option>
+                        <option>Not working</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section-title">Additional Information</div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Business Unit</label>
+                    <select>
+                        <option selected>BIN - India</option>
+                        <option>BIN - USA</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label>Purchase Order</label>
+                    <input type="text" placeholder="Enter PO number" style="background: #FFFACD;">
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-danger">Assign Division</button>
+                <button class="btn btn-warning">Go to Requesting Additional Information/Pictures</button>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="saveTicket()">✓ Save Changes</button>
+            </div>
+        </div>
+
+        <!-- Analysis Tab -->
+        <div id="analysisTab" class="tab-content">
+            <div class="info-box">
+                <strong>Sample Receiving Date:</strong> <span id="sampleDate" class="badge-blue">Not Set</span>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Complaint Confirmed</label>
+                    <select>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label>Sample Quantity</label>
+                    <input type="number" style="background: #FFFACD;">
+                </div>
+            </div>
+
+            <div class="form-row full">
+                <div class="form-field">
+                    <label>Comments</label>
+                    <textarea placeholder="Enter analysis comments..." style="background: #FFFACD;"></textarea>
+                </div>
+            </div>
+
+            <div class="section-title">Analysis Detail</div>
+
+            <div class="form-row full">
+                <div class="form-field">
+                    <label>Analysis Detail</label>
+                    <textarea placeholder="Detailed analysis findings..." style="background: #FFFACD;"></textarea>
+                </div>
+            </div>
+
+            <div class="section-title">Analysis Reported Errors</div>
+
+            <table style="margin-top: 15px;">
+                <thead>
+                    <tr>
+                        <th>Date Code</th>
+                        <th>Quantity</th>
+                        <th>Subsystem</th>
+                        <th>Issue</th>
+                        <th>Issue Detail</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" style="width: 100%; padding: 8px; border: 1px solid #ddd;"></td>
+                        <td><input type="number" style="width: 100%; padding: 8px; border: 1px solid #ddd;"></td>
+                        <td><input type="text" style="width: 100%; padding: 8px; border: 1px solid #ddd;"></td>
+                        <td><select style="width: 100%; padding: 8px; border: 1px solid #ddd;"><option>Select</option></select></td>
+                        <td><select style="width: 100%; padding: 8px; border: 1px solid #ddd;"><option>Select</option></select></td>
+                        <td><button class="btn btn-small btn-primary">+</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top: 20px;">
+                <label style="display: block; font-weight: bold; margin-bottom: 10px;">Upload File:</label>
+                <div class="file-upload">
+                    <input type="file" style="display: none;" id="fileUpload">
+                    <a href="javascript:document.getElementById('fileUpload').click();" style="color: var(--info); text-decoration: none; cursor: pointer;">Choose File</a> - No file chosen
+                    <button class="btn btn-primary btn-small" onclick="document.getElementById('fileUpload').click()" style="margin-left: 10px;">Upload</button>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="saveAnalysis()">✓ Save Extended Comments</button>
+            </div>
+        </div>
+
+        <!-- Corrective Action Tab -->
+        <div id="correctiveActionTab" class="tab-content">
+            <div class="action-buttons">
+                <button class="btn btn-danger">Assign Division</button>
+                <button class="btn btn-warning">Go to Requesting Additional Information/Pictures</button>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Containment Action</label>
+                    <select style="background: #FFFACD;">
+                        <option selected>NO SELECTED</option>
+                        <option>Hold</option>
+                        <option>Rework</option>
+                        <option>Scrap</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Containment Date</label>
+                    <input type="date" style="background: #FFFACD;">
+                </div>
+            </div>
+
+            <div class="form-row full">
+                <div class="form-field">
+                    <label>Comments</label>
+                    <textarea style="background: #FFFACD;" placeholder="Enter comments..."></textarea>
+                </div>
+            </div>
+
+            <div class="form-row full">
+                <div class="form-field">
+                    <label>Root Cause</label>
+                    <textarea style="background: #FFFACD;" placeholder="Describe root cause..."></textarea>
+                </div>
+            </div>
+
+            <div class="form-row full">
+                <div class="form-field">
+                    <label>Corrective Action</label>
+                    <textarea style="background: #FFFACD;" placeholder="Detail corrective actions..."></textarea>
+                </div>
+            </div>
+
+            <div class="form-row full">
+                <div class="form-field">
+                    <label>Effectiveness Check</label>
+                    <textarea style="background: #FFFACD;" placeholder="Verify effectiveness..."></textarea>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="saveCorrectiveAction()">✓ Save Corrective Action</button>
+            </div>
+        </div>
+
+        <!-- Customer Notification Tab -->
+        <div id="customerNotificationTab" class="tab-content">
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Notification Required</label>
+                    <select>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label>Customer Notification Date</label>
+                    <input type="date" style="background: #FFFACD;">
+                </div>
+            </div>
+
+            <div class="form-row full">
+                <div class="form-field">
+                    <label>Notification Method</label>
+                    <select>
+                        <option selected>Email</option>
+                        <option>Phone</option>
+                        <option>Letter</option>
+                        <option>In Person</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row full">
+                <div class="form-field">
+                    <label>Notification Content</label>
+                    <textarea style="background: #FFFACD;" placeholder="Enter notification message..."></textarea>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>Notification Status:</strong> <span class="badge-yellow">Pending</span>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-warning">Send Notification</button>
+                <button class="btn btn-success" onclick="saveNotification()">✓ Save Notification</button>
+            </div>
+        </div>
+
+        <!-- Assigned Tasks Tab -->
+        <div id="assignedTasksTab" class="tab-content">
+            <div class="section-title">Current Assignments</div>
+
+            <table style="margin-bottom: 20px;">
+                <thead>
+                    <tr>
+                        <th>Task ID</th>
+                        <th>Description</th>
+                        <th>Assigned To</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>TASK-001</td>
+                        <td>Sample Analysis</td>
+                        <td>Harisadhan Mandal</td>
+                        <td>06/28/2026</td>
+                        <td><span class="status-badge status-in-progress">In Progress</span></td>
+                        <td><button class="btn btn-small btn-info">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>TASK-002</td>
+                        <td>Customer Follow-up</td>
+                        <td>Elena Martinez</td>
+                        <td>06/25/2026</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td><button class="btn btn-small btn-info">View</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-title">Assign New Task</div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Task Description</label>
+                    <input type="text" placeholder="What needs to be done?" style="background: #FFFACD;">
+                </div>
+                <div class="form-field">
+                    <label>Assign To</label>
+                    <select style="background: #FFFACD;">
+                        <option>Harisadhan Mandal</option>
+                        <option>Elena Martinez</option>
+                        <option>John Smith</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label>Due Date</label>
+                    <input type="date" style="background: #FFFACD;">
+                </div>
+                <div class="form-field">
+                    <label>Priority</label>
+                    <select style="background: #FFFACD;">
+                        <option>Low</option>
+                        <option selected>Medium</option>
+                        <option>High</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="saveTask()">✓ Create Task</button>
+            </div>
+        </div>
+
+        <!-- Dates & History Tab -->
+        <div id="datesHistoryTab" class="tab-content">
+            <div class="section-title">Key Dates</div>
+
+            <div class="info-box">
+                <strong>Created:</strong> 6/23/2026 8:14:46 PM
+            </div>
+            <div class="info-box">
+                <strong>Last Modified:</strong> 6/23/2026 9:30:15 PM
+            </div>
+            <div class="info-box">
+                <strong>Sample Received:</strong> Not Set
+            </div>
+            <div class="info-box">
+                <strong>Analysis Started:</strong> Not Set
+            </div>
+            <div class="info-box">
+                <strong>Analysis Completed:</strong> Not Set
+            </div>
+
+            <div class="section-title">Activity History</div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Action</th>
+                        <th>User</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>6/23/2026 8:14:46 PM</td>
+                        <td><span class="badge-blue">Created</span></td>
+                        <td>Admin User</td>
+                        <td>Claim submitted</td>
+                    </tr>
+                    <tr>
+                        <td>6/23/2026 8:20:30 PM</td>
+                        <td><span class="badge-yellow">Assigned</span></td>
+                        <td>Admin User</td>
+                        <td>Assigned to Harisadhan Mandal</td>
+                    </tr>
+                    <tr>
+                        <td>6/23/2026 9:30:15 PM</td>
+                        <td><span class="badge-blue">Updated</span></td>
+                        <td>Harisadhan Mandal</td>
+                        <td>Added analysis notes</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- General Comments Tab -->
+        <div id="generalCommentsTab" class="tab-content">
+            <div class="section-title">Comment Thread</div>
+
+            <div style="background: #f9f9f9; padding: 16px; border-radius: 8px; margin-bottom: 20px; max-height: 300px; overflow-y: auto;">
+                <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #e0e0e0;">
+                    <strong>Harisadhan Mandal</strong> <span style="color: #999; font-size: 12px;">6/23/2026 9:30 PM</span>
+                    <p style="margin-top: 8px; color: #333;">Received sample in good condition. Initial visual inspection shows burnt component on board. Will perform detailed analysis.</p>
+                </div>
+
+                <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #e0e0e0;">
+                    <strong>Admin User</strong> <span style="color: #999; font-size: 12px;">6/23/2026 8:20 PM</span>
+                    <p style="margin-top: 8px; color: #333;">Claim assigned for analysis. Customer is expecting resolution within 5 business days.</p>
+                </div>
+            </div>
+
+            <div class="section-title">Add Comment</div>
+
+            <div class="form-field">
+                <textarea style="background: #FFFACD;" placeholder="Add a comment..."></textarea>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="saveComment()">✓ Post Comment</button>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 20px 0; color: #666; font-size: 12px;">
+            <p>ESAB Rosetta Claims Management System v2.0 | Last Updated: 6/23/2026</p>
+        </div>
+    </div>
+
+    <!-- NEW CLAIM TYPES SELECTION -->
+    <div id="claimTypesScreen" class="container hidden" style="margin-top: 30px;">
+        <button class="back-btn" onclick="goToDashboard()">← Back to Dashboard</button>
+        <div class="title">New Rosetta Claim</div>
+        <div style="background: #fffacd; padding: 20px 40px; margin: 0 40px 30px; border-radius: 8px;">
+            <p style="color: #333; font-size: 14px; font-weight: 600;">Choose the type of Claim you would like to enter by clicking the corresponding tile.</p>
+        </div>
+        <div class="claim-options-container">
+            <div class="claim-option-card" onclick="startNewClaim('Product Quality Issue')">
+                <h3>Claim - Product Quality Issue</h3>
+                <p>A defect in the physical product that affects fit, form or function in a product delivered to a customer.</p>
+                <span class="go-to-form">Go to form →</span>
+            </div>
+            <div class="claim-option-card" onclick="startNewClaim('Non-Product Quality Issue')">
+                <h3>Claim - Non-Product Quality Issue</h3>
+                <p>A defect in the service for the product that does not affect fit, form or function. For example, issues created by Customer Service, Sales, Warehouse, Transportation, Pricing, etc. - Currently only available for Europe, India, Bangladesh, Mexico, and APAC claims only.</p>
+                <span class="go-to-form">Go to form →</span>
+            </div>
+            <div class="claim-option-card" onclick="startNewClaim('Voice of Customer')" style="margin-bottom: 0;">
+                <h3>Voice of Customer Suggestion</h3>
+                <p>Customer ideas or requests of functionality to improve our products. This is information to be gathered by Sales and presented to Product Management only.</p>
+                <span class="go-to-form">Go to form →</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW CLAIM FORM -->
+    <div id="newClaimFormScreen" class="container hidden" style="margin-top: 30px;">
+        <button class="back-btn" onclick="goToDashboard()">← Back to Dashboard</button>
+        <div style="position: relative;">
+            <div class="title" id="newClaimTitle">New Claim - Product Quality Issue</div>
+            <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(this, 'newTicketDetailsTab')">Ticket Details</button>
+            <button class="tab" onclick="switchTab(this, 'newAnalysisTab')">Analysis</button>
+            <button class="tab" onclick="switchTab(this, 'newCorrectiveActionTab')">Corrective Action</button>
+            <button class="tab" onclick="switchTab(this, 'newCustomerNotificationTab')">Customer Notification</button>
+            <button class="tab" onclick="switchTab(this, 'newAssignedTasksTab')">Assigned Tasks</button>
+            <button class="tab" onclick="switchTab(this, 'newDatesHistoryTab')">Dates & History</button>
+            <button class="tab" onclick="switchTab(this, 'newGeneralCommentsTab')">General Comments</button>
+        </div>
+
+        <!-- New Ticket Details Tab -->
+        <div id="newTicketDetailsTab" class="tab-content active">
+            <div class="new-claim-form-container">
+                <!-- LEFT: Labels -->
+                <div class="left-labels">
+                    <div class="form-section-label">⚠ Required Information</div>
+                    <div class="left-labels-item">Complaint Number:</div>
+                    <div class="left-labels-item">Urgency Level:</div>
+                    <div class="left-labels-item">Status:</div>
+                    <div class="left-labels-item">Created:</div>
+                    <div style="height: 16px;"></div>
+                    <div class="form-section-label">⚠ GIN / Part Number</div>
+                    <div class="left-labels-item">GIN / Part Number:</div>
+                    <div class="left-labels-item">Description</div>
+                    <div class="left-labels-item">Serial Number</div>
+                    <div class="left-labels-item">Add parts sent for repair</div>
+                    <div style="height: 16px;"></div>
+                    <div class="form-section-label">⚠ Customer Number</div>
+                    <div class="left-labels-item">Customer Number:</div>
+                    <div class="left-labels-item">Customer:</div>
+                    <div class="left-labels-item">Total Quantity Claimed</div>
+                    <div class="left-labels-item">Unit of Measure</div>
+                    <div class="left-labels-item">Out of the Box Failure:</div>
+                    <div class="left-labels-item">Issue:</div>
+                    <div class="left-labels-item">Issue Detail:</div>
+                    <div class="left-labels-item">Business Unit:</div>
+                    <div class="left-labels-item">Purchase Order</div>
+                </div>
+
+                <!-- CENTER: Input Fields -->
+                <div class="center-inputs">
+                    <div class="form-row-3col">
+                        <input type="text" value="Auto-generated" readonly style="background: #FFFACD;">
+                        <select style="background: #FFFACD;"><option>Select a Level</option></select>
+                    </div>
+                    <div class="form-row-3col">
+                        <select style="background: #FFFACD;"><option>Draft</option></select>
+                        <input type="text" value="6/23/2026 11:36:09 PM" readonly style="background: #FFFACD;">
+                    </div>
+
+                    <input type="text" placeholder="" style="background: #FFFACD;">
+                    <input type="text" placeholder="" style="background: #FFFACD;">
+                    <input type="text" placeholder="" style="background: #FFFACD;">
+                    <input type="text" placeholder="" style="background: #FFFACD;">
+
+                    <input type="text" placeholder="" style="background: #FFFACD;">
+                    <input type="text" placeholder="" style="background: #FFFACD;">
+                    <input type="number" value="" style="background: #FFFACD;">
+                    <select style="background: #FFFACD;"><option>EACH</option></select>
+                    <select style="background: #FFFACD;"><option>Select an option</option></select>
+                    <select style="background: #FFFACD;"><option>Issue</option></select>
+                    <select style="background: #FFFACD;"><option>Issue Detail</option></select>
+                    <select style="background: #FFFACD;"><option>Select</option></select>
+                    <input type="text" placeholder="" style="background: #FFFACD;">
+                </div>
+
+                <!-- RIGHT: Requested Information -->
+                <div class="right-section">
+                    <div class="form-section-label" style="color: #333; background: white; border-left: 4px solid #666;">📋 Requested Information</div>
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Complaint Owner:</div>
+                    <input type="text" value="Administrator" readonly style="width: 100%; padding: 8px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Assigned To:</div>
+                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">QA Coordinator:</div>
+                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Type of Issue:</div>
+                    <select style="width: 100%; padding: 8px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
+                        <option>ESAB Product Quality Issue</option>
+                    </select>
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Request RMA:</div>
+                    <div class="radio-group" style="margin-bottom: 12px;">
+                        <label><input type="radio" name="requestRMA"> Yes</label>
+                        <label><input type="radio" name="requestRMA" checked> No</label>
+                    </div>
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Customer Requires CAB/BD</div>
+                    <div class="radio-group" style="margin-bottom: 12px;">
+                        <label><input type="radio" name="customerRequires"> Yes</label>
+                        <label><input type="radio" name="customerRequires" checked> No</label>
+                    </div>
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Date of Sale:</div>
+                    <input type="date" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Credit Note:</div>
+                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Shipment Number:</div>
+                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Order Number:</div>
+                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">External Customer:</div>
+                    <div class="radio-group" style="margin-bottom: 12px;">
+                        <label><input type="radio" name="externalCustomer"> Yes</label>
+                        <label><input type="radio" name="externalCustomer" checked> No</label>
+                    </div>
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Reason Code:</div>
+                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">Return / RMA Number</div>
+                    <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; border-radius: 4px; font-size: 12px;">
+
+                    <div style="font-size: 12px; font-weight: 600; margin-bottom: 8px;">File Upload:</div>
+                    <div class="file-upload" style="padding: 10px; border: 2px dashed #ddd; background: #fff;">
+                        <input type="file" style="display: none;" id="newClaimFileUpload">
+                        <a href="javascript:document.getElementById('newClaimFileUpload').click();" style="color: var(--info); text-decoration: none; cursor: pointer; font-size: 11px;">Choose File</a>
+                        <button class="btn btn-primary btn-small" onclick="document.getElementById('newClaimFileUpload').click()" style="margin-left: 6px; padding: 4px 8px; font-size: 11px;">Upload</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="saveNewClaim()">✓ Submit New Claim</button>
+            </div>
+        </div>
+
+        <!-- Analysis Tab (empty for new claim) -->
+        <div id="newAnalysisTab" class="tab-content">
+            <div style="padding: 40px; text-align: center; color: #999;">
+                <p>Analysis will be available after claim submission.</p>
+            </div>
+        </div>
+
+        <!-- Corrective Action Tab (empty for new claim) -->
+        <div id="newCorrectiveActionTab" class="tab-content">
+            <div style="padding: 40px; text-align: center; color: #999;">
+                <p>Corrective Action will be available after claim submission.</p>
+            </div>
+        </div>
+
+        <!-- Customer Notification Tab (empty for new claim) -->
+        <div id="newCustomerNotificationTab" class="tab-content">
+            <div style="padding: 40px; text-align: center; color: #999;">
+                <p>Customer Notification will be available after claim submission.</p>
+            </div>
+        </div>
+
+        <!-- Assigned Tasks Tab (empty for new claim) -->
+        <div id="newAssignedTasksTab" class="tab-content">
+            <div style="padding: 40px; text-align: center; color: #999;">
+                <p>Assigned Tasks will be available after claim submission.</p>
+            </div>
+        </div>
+
+        <!-- Dates & History Tab (empty for new claim) -->
+        <div id="newDatesHistoryTab" class="tab-content">
+            <div style="padding: 40px; text-align: center; color: #999;">
+                <p>Date and History will be available after claim submission.</p>
+            </div>
+        </div>
+
+        <!-- General Comments Tab (empty for new claim) -->
+        <div id="newGeneralCommentsTab" class="tab-content">
+            <div style="padding: 40px; text-align: center; color: #999;">
+                <p>Comments will be available after claim submission.</p>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    function login(e) {
-        e.preventDefault();
-        alert('✅ Login successful!\n\nDemo Features:\n- Premium glassmorphism design\n- Interactive dashboard\n- Claims management table\n- Form workflows\n- 7-tab ticket details system\n\nThis is a modernization proposal showing the future ESAB Rosetta application built with React/Next.js and Azure infrastructure.');
+    // Mock Claims Data
+    const claimsData = [
+        { type: 'ESAB PRODUCT QUALITY ISSUE', id: '2606232032016', status: 'Submitted', site: '3rd Party - 3rd Party', product: '204005', reportedBy: 'Chris Brewer', assignedTo: 'Keith Barker', qaCoordinator: 'Keith Barker', timeElapsed: '4 Hours', rmaNum: '..', invoice: '', shipmentNum: '', creditNote: '', tasks: '0' },
+        { type: 'ESAB PRODUCT QUALITY ISSUE', id: '2606232225531', status: 'Submitted', site: '3rd Party- Welldo', product: 'W1400186', reportedBy: 'Chris Brewer', assignedTo: 'Sven Li', qaCoordinator: 'Sven Li', timeElapsed: '5 Hours', rmaNum: '', invoice: '', shipmentNum: '', creditNote: '', tasks: '0' },
+        { type: 'ESAB PRODUCT QUALITY ISSUE', id: '2606232201436', status: 'Submitted', site: 'IGT-EQ', product: '4610149750', reportedBy: 'Nital Patra', assignedTo: 'Harisadhan Mandal', qaCoordinator: 'Karthick A', timeElapsed: '7 Hours', rmaNum: '6025009963', invoice: '', shipmentNum: '', creditNote: '', tasks: '0' },
+        { type: 'ESAB PRODUCT QUALITY ISSUE', id: '2606231426605', status: 'Submitted', site: 'IGT-EQ', product: '4320155001', reportedBy: 'Biprajit Roy', assignedTo: 'Harisadhan Mandal', qaCoordinator: 'Karthick A', timeElapsed: '13 Hours', rmaNum: '6026016627', invoice: '', shipmentNum: '', creditNote: '', tasks: '0' },
+        { type: 'ESAB PRODUCT QUALITY ISSUE', id: '2606231426605', status: 'Submitted', site: '3rd Party- Hugong', product: '0705002012', reportedBy: 'Mr Santhosh Jayavaram', assignedTo: 'Jack Ding', qaCoordinator: 'Jack Ding', timeElapsed: '13 Hours', rmaNum: 'IN00280', invoice: '6525046449', shipmentNum: '', creditNote: '', tasks: '0' },
+        { type: 'ESAB PRODUCT QUALITY ISSUE', id: 'LOG-2606231426605', status: 'Submitted', site: 'India Logistics', product: '0705002012', reportedBy: 'Mr Santhosh Jayavaram', assignedTo: 'Harisadhan Mandal', qaCoordinator: 'Harisadhan Mandal', timeElapsed: '13 Hours', rmaNum: 'IN00280', invoice: '6525046449', shipmentNum: '', creditNote: '', tasks: '0' },
+        { type: 'ESAB PRODUCT QUALITY ISSUE', id: '2606231406605', status: 'Submitted', site: 'IGT-EQ', product: '4610210400', reportedBy: 'Mr Santhosh Jayavaram', assignedTo: 'Harisadhan Mandal', qaCoordinator: 'Karthick A', timeElapsed: '13 Hours', rmaNum: 'IN00280', invoice: '6025104208', shipmentNum: '', creditNote: '', tasks: '0' },
+        { type: 'ESAB PRODUCT QUALITY ISSUE', id: '2606230754159', status: 'Submitted', site: 'IGT-EQ', product: '1651686907', reportedBy: 'Mahipal Yadav', assignedTo: 'Harisadhan Mandal', qaCoordinator: 'Karthick A', timeElapsed: '20 Hours', rmaNum: 'IN01342', invoice: '6025009165', shipmentNum: '', creditNote: '', tasks: '0' },
+        { type: 'ESAB PRODUCT QUALITY ISSUE', id: '2606230743209', status: 'Submitted', site: 'IGT-EQ', product: '1651686907', reportedBy: 'Mahipal Yadav', assignedTo: 'Harisadhan Mandal', qaCoordinator: 'Karthick A', timeElapsed: '20 Hours', rmaNum: 'IN01356', invoice: '6025080730', shipmentNum: '', creditNote: '', tasks: '0' },
+        { type: 'NON QUALITY COMPLAINT', id: '2606230426346', status: 'RMA Issued', site: 'Budapest QA', product: '6181323010', reportedBy: 'Tamas Farago', assignedTo: 'Anna Siroki', qaCoordinator: 'Anna Siroki', timeElapsed: '0 Days', rmaNum: 'LTB00005', invoice: '400014491', shipmentNum: 'LTB2656101531', creditNote: '25% of the value of the goods + transport cost [179 EUR]', tasks: '0' },
+    ];
+
+    let currentClaim = null;
+
+    function login() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        if (username && password) {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('appScreen').classList.remove('hidden');
+            document.getElementById('userDisplay').textContent = 'Welcome, ' + username.charAt(0).toUpperCase() + username.slice(1);
+        }
     }
+
+    function logout() {
+        document.getElementById('appScreen').classList.add('hidden');
+        document.getElementById('loginScreen').classList.remove('hidden');
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+    }
+
+    function toggleDropdown(el) {
+        el.classList.toggle('active');
+    }
+
+    function goToDashboard() {
+        document.getElementById('dashboard').classList.remove('hidden');
+        document.getElementById('claimsTable').classList.add('hidden');
+        document.getElementById('ticketDetails').classList.add('hidden');
+        document.getElementById('claimTypesScreen').classList.add('hidden');
+        document.getElementById('newClaimFormScreen').classList.add('hidden');
+    }
+
+    function showClaimsTable() {
+        document.getElementById('dashboard').classList.add('hidden');
+        document.getElementById('claimsTable').classList.remove('hidden');
+        document.getElementById('ticketDetails').classList.add('hidden');
+        populateClaimsTable();
+    }
+
+    function populateClaimsTable() {
+        const tbody = document.getElementById('claimsTableBody');
+        tbody.innerHTML = '';
+        claimsData.forEach((claim, index) => {
+            const row = tbody.insertRow();
+            const statusColor = claim.status === 'Submitted' ? 'green' : claim.status === 'RMA Issued' ? 'yellow' : 'blue';
+            row.innerHTML = `
+                <td><input type="checkbox"></td>
+                <td><span class="badge-blue">${claim.type}</span></td>
+                <td><strong>${claim.id}</strong></td>
+                <td><span class="status-badge status-${statusColor}" style="background: ${statusColor === 'green' ? '#d1fae5' : statusColor === 'yellow' ? '#fed7aa' : '#bfdbfe'}; color: ${statusColor === 'green' ? '#065f46' : statusColor === 'yellow' ? '#92400e' : '#1e40af'};">${claim.status}</span></td>
+                <td>${claim.site}</td>
+                <td>${claim.product}</td>
+                <td>${claim.reportedBy}</td>
+                <td>${claim.assignedTo}</td>
+                <td>${claim.qaCoordinator}</td>
+                <td>${claim.timeElapsed}</td>
+                <td>${claim.rmaNum}</td>
+                <td>${claim.invoice}</td>
+                <td>${claim.shipmentNum}</td>
+                <td>${claim.creditNote}</td>
+                <td>${claim.tasks}</td>
+                <td><button class="btn btn-small btn-primary" onclick="viewClaim(${index})">View</button></td>
+            `;
+        });
+    }
+
+    function viewClaim(index) {
+        currentClaim = claimsData[index];
+        document.getElementById('claimsTable').classList.add('hidden');
+        document.getElementById('ticketDetails').classList.remove('hidden');
+        document.querySelectorAll('.tab').forEach((t, i) => {
+            t.classList.toggle('active', i === 0);
+        });
+        document.querySelectorAll('.tab-content').forEach((c, i) => {
+            c.classList.toggle('active', i === 0);
+        });
+    }
+
+    function switchTab(tabBtn, contentId) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        tabBtn.classList.add('active');
+        document.getElementById(contentId).classList.add('active');
+    }
+
+    function toggleSection(el) {
+        const text = el.textContent.trim();
+        if (text.includes('All Claims')) {
+            showClaimsTable();
+        }
+    }
+
+    function showClaimTypes() {
+        document.getElementById('dashboard').classList.add('hidden');
+        document.getElementById('claimsTable').classList.add('hidden');
+        document.getElementById('ticketDetails').classList.add('hidden');
+        document.getElementById('newClaimFormScreen').classList.add('hidden');
+        document.getElementById('claimTypesScreen').classList.remove('hidden');
+    }
+
+    function startNewClaim(claimType) {
+        document.getElementById('claimTypesScreen').classList.add('hidden');
+        document.getElementById('newClaimFormScreen').classList.remove('hidden');
+        document.getElementById('newClaimTitle').textContent = 'New Claim - ' + claimType;
+        document.querySelectorAll('#newClaimFormScreen .tab').forEach((t, i) => {
+            t.classList.toggle('active', i === 0);
+        });
+        document.querySelectorAll('#newClaimFormScreen .tab-content').forEach((c, i) => {
+            c.classList.toggle('active', i === 0);
+        });
+    }
+
+    function saveNewClaim() {
+        alert('✓ Claim submitted successfully! Your claim ID is: CLM-2026-' + (Math.floor(Math.random() * 9000) + 1000));
+        goToDashboard();
+    }
+
+    function saveTicket() { alert('Ticket Details saved successfully!'); }
+    function saveAnalysis() { alert('Analysis saved successfully!'); }
+    function saveCorrectiveAction() { alert('Corrective Action saved successfully!'); }
+    function saveNotification() { alert('Notification saved successfully!'); }
+    function saveTask() { alert('Task created successfully!'); }
+    function saveComment() { alert('Comment posted successfully!'); }
+    function downloadPDF() { alert('Downloading PDF...'); }
 </script>
 
 </body>
