@@ -1,17 +1,4 @@
 {
-  "name": "esab-rosetta-demo",
-  "version": 2,
-  "buildCommand": "",
-  "outputDirectory": ".",
-  "installCommand": "",
-  "framework": "static",
-  "env": {},
-  "regions": ["iad1"],
-  "functions": {
-    "api/**/*.js": {
-      "maxDuration": 10
-    }
-  },
   "rewrites": [
     {
       "source": "/(.*)",
@@ -33,10 +20,6 @@
         {
           "key": "X-Frame-Options",
           "value": "SAMEORIGIN"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
         }
       ]
     }
