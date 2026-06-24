@@ -2230,6 +2230,184 @@
             </div>
         </div>
     </div>
+
+    <!-- VIEW EXISTING CLAIM DETAILS SCREEN -->
+    <div id="viewClaimDetailsScreen" class="container hidden" style="margin-top: 30px;">
+        <button class="back-btn" onclick="goToDashboard()">← Back to Dashboard</button>
+        <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+        <div style="position: relative;">
+            <div class="title" id="viewClaimTitle">Claim Details</div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab(this, 'viewTicketDetailsTab')">Ticket Details</button>
+            <button class="tab" onclick="switchTab(this, 'viewAnalysisTab')">Analysis</button>
+            <button class="tab" onclick="switchTab(this, 'viewCorrectiveActionTab')">Corrective Action</button>
+            <button class="tab" onclick="switchTab(this, 'viewCustomerNotificationTab')">Customer Notification</button>
+            <button class="tab" onclick="switchTab(this, 'viewAssignedTasksTab')">Assigned Tasks</button>
+            <button class="tab" onclick="switchTab(this, 'viewDatesHistoryTab')">Dates & History</button>
+            <button class="tab" onclick="switchTab(this, 'viewGeneralCommentsTab')">General Comments</button>
+        </div>
+
+        <!-- Ticket Details Tab -->
+        <div id="viewTicketDetailsTab" class="tab-content active">
+            <div class="ticket-form-grid" style="margin: 0 40px 40px;">
+                <div class="form-section-label" style="grid-column: 1/-1;">⚠ Claim Information</div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Complaint Number:</label>
+                    <input type="text" id="view_complaintNumber" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Type:</label>
+                    <input type="text" id="view_type" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Status:</label>
+                    <input type="text" id="view_status" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Site:</label>
+                    <input type="text" id="view_site" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Product:</label>
+                    <input type="text" id="view_product" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Reported By:</label>
+                    <input type="text" id="view_reportedBy" readonly class="ticket-form-input">
+                </div>
+                <div class="form-section-label" style="grid-column: 1/-1; margin-top: 12px;">⚠ Assignment & Coordination</div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Assigned To:</label>
+                    <input type="text" id="view_assignedTo" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">QA Coordinator:</label>
+                    <input type="text" id="view_qaCoordinator" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Time Elapsed:</label>
+                    <input type="text" id="view_timeElapsed" readonly class="ticket-form-input">
+                </div>
+                <div class="form-section-label" style="grid-column: 1/-1; margin-top: 12px;">⚠ Documentation</div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">RMA Number:</label>
+                    <input type="text" id="view_rmaNum" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Invoice:</label>
+                    <input type="text" id="view_invoice" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Shipment Number:</label>
+                    <input type="text" id="view_shipmentNum" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Credit Note:</label>
+                    <input type="text" id="view_creditNote" readonly class="ticket-form-input">
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Tab -->
+        <div id="viewAnalysisTab" class="tab-content">
+            <div style="padding: 20px 40px 40px;">
+                <div style="background: #FFFACD; border: 1px solid #ddd; padding: 12px; border-radius: 4px; margin-bottom: 20px; font-size: 12px; font-weight: 500; color: #333;">
+                    📋 Analysis Details
+                </div>
+                <div class="ticket-form-grid">
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Assigned To:</label>
+                        <input type="text" id="view_analysisAssignedTo" readonly class="ticket-form-input">
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Status:</label>
+                        <input type="text" id="view_analysisStatus" value="Submitted" readonly class="ticket-form-input">
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Comments:</label>
+                        <textarea style="background: #fffacd !important; border: none; padding: 8px; border-radius: 4px; font-family: Arial; font-size: 12px; grid-column: 2; min-height: 80px;" id="view_analysisComments"></textarea>
+                    </div>
+                </div>
+                <div style="text-align: right; margin-top: 20px;">
+                    <button style="padding: 10px 20px; background: #d32f2f; color: white; border: none; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">Go to Requesting Additional Information/Pictures</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Corrective Action Tab -->
+        <div id="viewCorrectiveActionTab" class="tab-content">
+            <div class="ticket-form-grid" style="margin: 0 40px 40px;">
+                <div class="form-section-label" style="grid-column: 1/-1;">⚠ Corrective Action</div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Assigned To:</label>
+                    <input type="text" id="view_caAssignedTo" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Containment Action:</label>
+                    <input type="text" id="view_containmentAction" readonly class="ticket-form-input">
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Root Cause:</label>
+                    <textarea style="background: #f0f0f0 !important; border: none; padding: 8px; border-radius: 4px; font-family: Arial; font-size: 12px; grid-column: 2; min-height: 80px;" id="view_rootCause"></textarea>
+                </div>
+                <div class="ticket-form-group">
+                    <label class="ticket-form-label">Corrective Action:</label>
+                    <textarea style="background: #fffacd !important; border: none; padding: 8px; border-radius: 4px; font-family: Arial; font-size: 12px; grid-column: 2; min-height: 80px;" id="view_correctiveAction"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Notification Tab -->
+        <div id="viewCustomerNotificationTab" class="tab-content">
+            <div style="padding: 20px 40px 40px;">
+                <div class="ticket-form-grid">
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Site:</label>
+                        <input type="text" id="view_customer" readonly class="ticket-form-input">
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Notification Status:</label>
+                        <input type="text" id="view_notificationStatus" value="Pending" readonly class="ticket-form-input">
+                    </div>
+                    <div class="ticket-form-group">
+                        <label class="ticket-form-label">Sent Date:</label>
+                        <input type="date" id="view_sentDate" class="ticket-form-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assigned Tasks Tab -->
+        <div id="viewAssignedTasksTab" class="tab-content">
+            <div style="padding: 40px; text-align: center; color: #999;">
+                <p id="view_tasks">Tasks: <span id="view_taskCount">0</span> tasks assigned</p>
+            </div>
+        </div>
+
+        <!-- Dates & History Tab -->
+        <div id="viewDatesHistoryTab" class="tab-content">
+            <div style="padding: 20px 40px 40px; background: #fffacd; border-radius: 4px; margin: 20px 40px;">
+                <div style="font-weight: 600; margin-bottom: 12px; color: #333;">📅 Timeline</div>
+                <div style="line-height: 1.8; font-size: 12px; color: #666;">
+                    <div><strong>Created:</strong> <span id="view_createdDate">6/23/2026</span></div>
+                    <div><strong>Time Elapsed:</strong> <span id="view_timeElapsedTimeline">4 Hours</span></div>
+                    <div><strong>Current Status:</strong> <span id="view_currentStatus">Submitted</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- General Comments Tab -->
+        <div id="viewGeneralCommentsTab" class="tab-content">
+            <div style="padding: 20px 40px 40px;">
+                <div style="background: white; border: 1px solid #ddd; border-radius: 4px; padding: 16px;">
+                    <div style="font-weight: 600; font-size: 12px; margin-bottom: 8px; color: #333;">General Comments:</div>
+                    <textarea style="width: 100%; height: 200px; background: #fffacd !important; border: none; padding: 8px; border-radius: 4px; font-family: Arial; font-size: 12px;" id="view_generalComments" placeholder="Add general comments here..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -2314,12 +2492,52 @@
 
     function viewClaim(index) {
         currentClaim = claimsData[index];
+
+        // Fill Ticket Details Tab
+        document.getElementById('view_complaintNumber').value = currentClaim.id;
+        document.getElementById('view_type').value = currentClaim.type;
+        document.getElementById('view_status').value = currentClaim.status;
+        document.getElementById('view_site').value = currentClaim.site;
+        document.getElementById('view_product').value = currentClaim.product;
+        document.getElementById('view_reportedBy').value = currentClaim.reportedBy;
+        document.getElementById('view_assignedTo').value = currentClaim.assignedTo;
+        document.getElementById('view_qaCoordinator').value = currentClaim.qaCoordinator;
+        document.getElementById('view_timeElapsed').value = currentClaim.timeElapsed;
+        document.getElementById('view_rmaNum').value = currentClaim.rmaNum;
+        document.getElementById('view_invoice').value = currentClaim.invoice;
+        document.getElementById('view_shipmentNum').value = currentClaim.shipmentNum;
+        document.getElementById('view_creditNote').value = currentClaim.creditNote;
+
+        // Fill Analysis Tab
+        document.getElementById('view_analysisAssignedTo').value = currentClaim.assignedTo;
+        document.getElementById('view_analysisComments').value = 'Analysis in progress...';
+
+        // Fill Corrective Action Tab
+        document.getElementById('view_caAssignedTo').value = currentClaim.assignedTo;
+        document.getElementById('view_rootCause').value = 'Root cause analysis pending...';
+
+        // Fill Customer Notification Tab
+        document.getElementById('view_customer').value = currentClaim.site;
+
+        // Fill Dates & History Tab
+        document.getElementById('view_timeElapsedTimeline').value = currentClaim.timeElapsed;
+        document.getElementById('view_currentStatus').value = currentClaim.status;
+        document.getElementById('view_taskCount').value = currentClaim.tasks;
+
+        // Update title
+        document.getElementById('viewClaimTitle').textContent = 'Claim: ' + currentClaim.id;
+
+        // Hide other screens and show the new claim details screen
         document.getElementById('claimsTable').classList.add('hidden');
-        document.getElementById('ticketDetails').classList.remove('hidden');
-        document.querySelectorAll('.tab').forEach((t, i) => {
+        document.getElementById('ticketDetails').classList.add('hidden');
+        document.getElementById('newClaimFormScreen').classList.add('hidden');
+        document.getElementById('viewClaimDetailsScreen').classList.remove('hidden');
+
+        // Set active tabs
+        document.querySelectorAll('#viewClaimDetailsScreen .tab').forEach((t, i) => {
             t.classList.toggle('active', i === 0);
         });
-        document.querySelectorAll('.tab-content').forEach((c, i) => {
+        document.querySelectorAll('#viewClaimDetailsScreen .tab-content').forEach((c, i) => {
             c.classList.toggle('active', i === 0);
         });
     }
