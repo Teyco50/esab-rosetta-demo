@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESAB Rosetta - Advanced Claims Management System</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -1270,6 +1272,32 @@
             font-size: 12px;
             color: #666;
         }
+        #worldMap {
+            width: 100%;
+            height: 400px;
+            border-radius: 8px;
+            z-index: 1;
+        }
+        .leaflet-container {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+        }
+        .leaflet-popup-content {
+            font-size: 12px;
+        }
+        .region-marker {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            background: linear-gradient(135deg, var(--primary), #ffed4e);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border: 3px solid white;
+        }
     </style>
 </head>
 <body>
@@ -1301,31 +1329,7 @@
         <!-- World Map Section -->
         <div class="world-map-section">
             <h2>📍 Claims por Región</h2>
-            <div class="world-map-container">
-                <svg viewBox="0 0 1000 600" style="width: 100%; max-width: 900px; height: auto;">
-                    <!-- Simplified World Map with regions -->
-                    <!-- North America -->
-                    <ellipse cx="200" cy="200" rx="80" ry="100" fill="#FFE5CC" stroke="#999" stroke-width="2" opacity="0.7"/>
-                    <!-- South America -->
-                    <ellipse cx="250" cy="400" rx="60" ry="80" fill="#FFD4B3" stroke="#999" stroke-width="2" opacity="0.7"/>
-                    <!-- Europe -->
-                    <ellipse cx="450" cy="180" rx="70" ry="60" fill="#FFD700" stroke="#999" stroke-width="2" opacity="0.8"/>
-                    <!-- Africa -->
-                    <ellipse cx="500" cy="350" rx="60" ry="90" fill="#FFC700" stroke="#999" stroke-width="2" opacity="0.8"/>
-                    <!-- Asia -->
-                    <ellipse cx="650" cy="250" rx="120" ry="100" fill="#FFB700" stroke="#999" stroke-width="2" opacity="0.8"/>
-                    <!-- Australia -->
-                    <ellipse cx="750" cy="420" rx="50" ry="60" fill="#FFAD00" stroke="#999" stroke-width="2" opacity="0.7"/>
-
-                    <!-- Region Labels -->
-                    <text x="200" y="210" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">N. América</text>
-                    <text x="250" y="410" font-size="16" font-weight="bold" text-anchor="middle" fill="#333">S. América</text>
-                    <text x="450" y="185" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">Europa</text>
-                    <text x="500" y="355" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">África</text>
-                    <text x="650" y="260" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">Asia</text>
-                    <text x="750" y="425" font-size="16" font-weight="bold" text-anchor="middle" fill="#000">Oceanía</text>
-                </svg>
-            </div>
+            <div id="worldMap" class="world-map-container"></div>
             <div class="region-legend">
                 <div class="region-item">
                     <div class="color-dot" style="background: #FFE5CC;"></div>
@@ -2799,6 +2803,9 @@
             regionCounts[region] = (regionCounts[region] || 0) + 1;
         });
 
+        // Initialize map with Leaflet
+        initializeWorldMap(regionCounts);
+
         // Update legend
         const regions = [
             { name: 'N. América', key: 'America' },
@@ -2820,6 +2827,52 @@
                 legendItem.querySelector('span').textContent = `${region.name}: ${count}`;
             }
             totalDisplayed += count;
+        });
+    }
+
+    let worldMapInstance = null;
+
+    function initializeWorldMap(regionCounts) {
+        // Destroy existing map if it exists
+        if (worldMapInstance) {
+            worldMapInstance.off();
+            worldMapInstance.remove();
+        }
+
+        // Create new map centered on world
+        worldMapInstance = L.map('worldMap').setView([20, 0], 2);
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19,
+            style: { opacity: 0.7 }
+        }).addTo(worldMapInstance);
+
+        // Define regions with coordinates
+        const regionMarkers = [
+            { name: 'N. América', lat: 45, lng: -100, count: Object.entries(regionCounts).filter(([site]) => site.includes('3rd Party') || site.includes('Party')).reduce((sum, [, val]) => sum + val, 0) },
+            { name: 'S. América', lat: -15, lng: -60, count: 4 },
+            { name: 'Europa', lat: 54, lng: 25, count: Object.entries(regionCounts).filter(([site]) => site.includes('Budapest')).reduce((sum, [, val]) => sum + val, 0) },
+            { name: 'África', lat: 0, lng: 20, count: 2 },
+            { name: 'Asia', lat: 34, lng: 100, count: Object.entries(regionCounts).filter(([site]) => site.includes('India') || site.includes('IGT')).reduce((sum, [, val]) => sum + val, 0) },
+            { name: 'Oceanía', lat: -27, lng: 133, count: 3 }
+        ];
+
+        // Add markers for each region
+        regionMarkers.forEach(region => {
+            const markerHtml = `<div class="region-marker">${region.count}</div>`;
+            const customIcon = L.divIcon({
+                html: markerHtml,
+                className: '',
+                iconSize: [50, 50],
+                iconAnchor: [25, 25],
+                popupAnchor: [0, -25]
+            });
+
+            L.marker([region.lat, region.lng], { icon: customIcon })
+                .bindPopup(`<strong>${region.name}</strong><br>Claims: ${region.count}`)
+                .addTo(worldMapInstance);
         });
     }
 
