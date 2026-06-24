@@ -2700,6 +2700,66 @@
     function saveTask() { alert('Task created successfully!'); }
     function saveComment() { alert('Comment posted successfully!'); }
     function downloadPDF() { alert('Downloading PDF...'); }
+
+    // RESIZABLE TABLE COLUMNS
+    function makeTableColumnsResizable() {
+        const tables = document.querySelectorAll('table');
+        tables.forEach(table => {
+            const ths = table.querySelectorAll('th');
+            ths.forEach((th, index) => {
+                const resizer = document.createElement('div');
+                resizer.className = 'column-resizer';
+                resizer.style.cssText = `
+                    position: absolute;
+                    top: 0;
+                    right: -5px;
+                    width: 10px;
+                    height: 100%;
+                    cursor: col-resize;
+                    user-select: none;
+                `;
+                th.style.position = 'relative';
+                th.appendChild(resizer);
+
+                let isResizing = false;
+                let startX = 0;
+                let startWidth = 0;
+
+                resizer.addEventListener('mousedown', (e) => {
+                    isResizing = true;
+                    startX = e.clientX;
+                    startWidth = th.offsetWidth;
+                    document.body.style.cursor = 'col-resize';
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isResizing) return;
+                    const diff = e.clientX - startX;
+                    th.style.width = (startWidth + diff) + 'px';
+                    th.style.minWidth = (startWidth + diff) + 'px';
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isResizing = false;
+                    document.body.style.cursor = 'default';
+                });
+            });
+        });
+    }
+
+    // Initialize resizable columns when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        makeTableColumnsResizable();
+    });
+
+    // Also reinitialize when switching tabs
+    const originalSwitchTab = switchTab;
+    window.switchTab = function(button, tabId) {
+        originalSwitchTab(button, tabId);
+        setTimeout(() => {
+            makeTableColumnsResizable();
+        }, 100);
+    };
 </script>
 
 </body>
