@@ -1964,10 +1964,110 @@
             </div>
         </div>
 
-        <!-- Analysis Tab (empty for new claim) -->
+        <!-- Analysis Tab -->
         <div id="newAnalysisTab" class="tab-content">
-            <div style="padding: 40px; text-align: center; color: #999;">
-                <p>Analysis will be available after claim submission.</p>
+            <div style="display: grid; grid-template-columns: 1fr 280px; gap: 20px; padding: 20px 40px 40px;">
+                <!-- Left: Analysis Details -->
+                <div>
+                    <div class="ticket-form-grid">
+                        <div class="ticket-form-group">
+                            <label class="ticket-form-label">Complaint Number:</label>
+                            <input type="text" value="2606232014536" readonly class="ticket-form-input">
+                        </div>
+                        <div class="ticket-form-group">
+                            <label class="ticket-form-label">Status:</label>
+                            <select class="ticket-form-input"><option selected>Submitted</option></select>
+                        </div>
+                        <div class="ticket-form-group">
+                            <label class="ticket-form-label">Assigned To:</label>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <input type="text" value="Hamadhan Mandal" readonly style="flex: 1; background: #fffacd !important; padding: 8px; border: none; border-radius: 4px;">
+                                <button style="padding: 6px 12px; background: #d32f2f; color: white; border: none; border-radius: 4px; font-size: 11px; cursor: pointer;">Assign Division</button>
+                            </div>
+                        </div>
+                        <div class="ticket-form-group">
+                            <label class="ticket-form-label">Sample Receiving Date:</label>
+                            <input type="date" class="ticket-form-input">
+                        </div>
+                        <div class="ticket-form-group">
+                            <label class="ticket-form-label">Complaint Confirmed:</label>
+                            <div style="display: flex; gap: 16px; padding: 8px;">
+                                <label><input type="radio" name="complaintConfirmed"> Yes</label>
+                                <label><input type="radio" name="complaintConfirmed" checked> No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div style="margin-top: 20px; background: white; border: 1px solid #ddd; border-radius: 4px; padding: 16px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 8px; color: #333;">Comments:</div>
+                        <textarea style="width: 100%; height: 120px; background: #fffacd !important; border: none; padding: 8px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 12px;" placeholder="Add comments here..."></textarea>
+                    </div>
+
+                    <!-- Analysis Detail Section -->
+                    <div style="margin-top: 20px; background: white; border: 1px solid #ddd; border-radius: 4px; padding: 16px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #f5f5f5; color: #333;">Analysis Detail</div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div>
+                                <div style="font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #666;">Date Code:</div>
+                                <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #fffacd !important; border: none; border-radius: 4px; font-size: 12px;">
+                            </div>
+                            <div>
+                                <div style="font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #666;">Quantity:</div>
+                                <input type="number" placeholder="" style="width: 100%; padding: 8px; background: #fffacd !important; border: none; border-radius: 4px; font-size: 12px;">
+                            </div>
+                            <div>
+                                <div style="font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #666;">Subsystem:</div>
+                                <input type="text" placeholder="" style="width: 100%; padding: 8px; background: #fffacd !important; border: none; border-radius: 4px; font-size: 12px;">
+                            </div>
+                            <div>
+                                <div style="font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #666;">Issue:</div>
+                                <select style="width: 100%; padding: 8px; background: #fffacd !important; border: none; border-radius: 4px; font-size: 12px;"><option>Select Issue</option></select>
+                            </div>
+                            <div style="grid-column: 1/-1;">
+                                <div style="font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #666;">Issue Detail:</div>
+                                <select style="width: 100%; padding: 8px; background: #fffacd !important; border: none; border-radius: 4px; font-size: 12px;"><option>Select Issue Detail</option></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File Upload Section -->
+                    <div style="margin-top: 20px; background: white; border: 1px solid #ddd; border-radius: 4px; padding: 16px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 12px; color: #333;">Upload File:</div>
+                        <div style="border: 2px dashed #ddd; padding: 12px; background: #fafafa; border-radius: 4px; text-align: center;">
+                            <input type="file" style="display: none;" id="analysisFileUpload">
+                            <div style="font-size: 12px; color: #666; margin-bottom: 8px;">Choose File — No file chosen</div>
+                            <button onclick="document.getElementById('analysisFileUpload').click()" style="padding: 6px 12px; background: #3b82f6; color: white; border: none; border-radius: 4px; font-size: 11px; cursor: pointer;">Upload</button>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Reported Errors -->
+                    <div style="margin-top: 20px; background: white; border: 1px solid #ddd; border-radius: 4px; padding: 16px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #f5f5f5;">
+                            <div style="font-weight: 600; font-size: 12px; color: #333;">Analysis Reported Errors:</div>
+                            <button style="padding: 4px 8px; background: #FFD700; color: #000; border: none; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: 600;">+ Add</button>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; font-size: 11px;">
+                            <input type="text" placeholder="Date Code" style="padding: 6px; background: #fffacd !important; border: none; border-radius: 4px;">
+                            <input type="number" placeholder="Quantity" style="padding: 6px; background: #fffacd !important; border: none; border-radius: 4px;">
+                            <input type="text" placeholder="Subsystem" style="padding: 6px; background: #fffacd !important; border: none; border-radius: 4px;">
+                            <select style="padding: 6px; background: #fffacd !important; border: none; border-radius: 4px;"><option>Issue</option></select>
+                            <select style="padding: 6px; background: #fffacd !important; border: none; border-radius: 4px;"><option>Issue Detail</option></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Reports and Actions -->
+                <div>
+                    <div style="background: #666; color: white; border-radius: 4px; padding: 12px; margin-bottom: 12px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 8px;">📊 CS Report</div>
+                        <button style="width: 100%; padding: 8px; background: #d32f2f; color: white; border: none; border-radius: 4px; font-size: 11px; cursor: pointer;">Go to Requesting Additional Information/Pictures</button>
+                    </div>
+                    <div style="background: #666; color: white; border-radius: 4px; padding: 12px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 8px;">📋 Catalog Export</div>
+                        <div style="font-size: 11px; color: #ddd;">Available after analysis completion</div>
+                    </div>
+                </div>
             </div>
         </div>
 
