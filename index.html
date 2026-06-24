@@ -2756,16 +2756,9 @@
     }
 
     function filterUserClaims() {
-        // Filter claims assigned to the current user or reported by them
-        currentUserClaims = claimsData.filter(c =>
-            c.assignedTo && c.assignedTo.toLowerCase().includes(currentUser.toLowerCase().split(' ')[0]) ||
-            c.reportedBy && c.reportedBy.toLowerCase().includes(currentUser.toLowerCase().split(' ')[0])
-        );
-
-        // If no exact match, show all claims (for demo purposes)
-        if (currentUserClaims.length === 0) {
-            currentUserClaims = claimsData;
-        }
+        // For demo purposes, show all claims
+        // In production, filter by assignedTo or reportedBy
+        currentUserClaims = claimsData;
     }
 
     function logout() {
