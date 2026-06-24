@@ -942,115 +942,87 @@
         /* NEW CLAIM FORM */
         .new-claim-form-container {
             padding: 40px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,249,250,0.98) 100%);
-            border-radius: 16px;
+            background: white;
+            border-radius: 0;
             display: grid;
-            grid-template-columns: 200px 1fr 320px;
+            grid-template-columns: 180px 1fr 280px;
             gap: 32px;
             margin: 0 40px 40px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.6);
-            backdrop-filter: blur(10px);
+            border: none;
         }
         .form-section-label {
-            font-weight: 900;
-            color: #fff;
-            padding: 12px 14px;
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            border-radius: 8px;
+            font-weight: 800;
+            color: #d32f2f;
+            padding: 10px 12px;
+            background: #ffcdd2;
+            border-radius: 0;
             font-size: 11px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 18px;
+            gap: 6px;
+            margin-bottom: 16px;
+            border-left: 4px solid #d32f2f;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
-            border: none;
+            letter-spacing: 0.8px;
         }
         .left-labels {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 0;
         }
         .left-labels-item {
-            font-weight: 800;
-            font-size: 11px;
-            color: #fff;
-            padding: 13px 14px;
-            background: linear-gradient(135deg, rgba(44, 62, 90, 0.9) 0%, rgba(26, 26, 46, 0.95) 100%);
-            border-radius: 8px;
+            font-weight: 700;
+            font-size: 12px;
+            color: #333;
+            padding: 14px 12px;
+            background: #f5f5f5;
+            border-radius: 0;
+            border-left: 3px solid #ccc;
             text-transform: uppercase;
-            letter-spacing: 0.6px;
-            border-left: 4px solid var(--primary);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        .left-labels-item:hover {
-            transform: translateX(4px);
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
-            border-left-color: #ffed4e;
+            letter-spacing: 0.4px;
+            border-bottom: 1px solid #e0e0e0;
         }
         .center-inputs {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 0;
         }
         .center-inputs input,
         .center-inputs select {
-            background: linear-gradient(135deg, #fffacd 0%, #fffff0 100%) !important;
-            border: 2px solid rgba(255, 215, 0, 0.4) !important;
-            padding: 12px 14px !important;
+            background: #fffacd !important;
+            border: 1px solid #ddd !important;
+            padding: 10px 12px !important;
             font-size: 12px !important;
-            font-weight: 500 !important;
             margin-bottom: 0 !important;
-            border-radius: 8px !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-            color: #1a1a1a !important;
-        }
-        .center-inputs input:hover,
-        .center-inputs select:hover {
-            border-color: var(--primary) !important;
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15) !important;
+            border-radius: 0 !important;
         }
         .center-inputs input:focus,
         .center-inputs select:focus {
             background: #fffff0 !important;
-            border: 2px solid var(--primary) !important;
-            outline: none !important;
-            box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.2), 0 4px 16px rgba(255, 215, 0, 0.25) !important;
+            border: 1px solid #ffc107 !important;
+            outline: none;
         }
         .right-section {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(255, 255, 255, 0.5) 100%);
-            padding: 20px;
-            border-radius: 12px;
-            border: 2px solid rgba(255, 215, 0, 0.25);
-            box-shadow: 0 8px 24px rgba(255, 215, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.6);
-            backdrop-filter: blur(10px);
+            background: #f9f9f9;
+            padding: 16px;
+            border-radius: 0;
+            border: 1px solid #e0e0e0;
         }
         .right-section input,
         .right-section select,
         .right-section textarea {
             background: white !important;
-            border: 1.5px solid rgba(0, 0, 0, 0.1) !important;
-            padding: 10px 12px !important;
+            border: 1px solid #ddd !important;
+            padding: 8px 10px !important;
             font-size: 12px !important;
-            border-radius: 6px !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        }
-        .right-section input:hover,
-        .right-section select:hover,
-        .right-section textarea:hover {
-            border-color: rgba(255, 215, 0, 0.5) !important;
-            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.1) !important;
+            border-radius: 0 !important;
         }
         .right-section input:focus,
         .right-section select:focus,
         .right-section textarea:focus {
             background: #fffacd !important;
-            border: 1.5px solid var(--primary) !important;
-            outline: none !important;
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2) !important;
+            border: 1px solid #ffc107 !important;
+            outline: none;
         }
         .form-row-3col {
             display: grid;
