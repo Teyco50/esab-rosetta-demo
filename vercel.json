@@ -1,7 +1,6 @@
 {
   "name": "esab-rosetta-demo",
   "version": 2,
-  "public": true,
   "buildCommand": "",
   "outputDirectory": ".",
   "installCommand": "",
