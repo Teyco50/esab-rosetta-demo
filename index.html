@@ -3044,27 +3044,15 @@
 
     function showUserClaimsTable() {
         // Hide home screen and show claims table
-        document.getElementById('homeScreen').classList.remove('active');
+        document.getElementById('homeScreen').classList.add('hidden');
         document.getElementById('claimsTable').classList.remove('hidden');
         document.getElementById('ticketDetails').classList.add('hidden');
         populateClaimsTable();
-
-        // Add back to dashboard button
-        const tableContainer = document.getElementById('claimsTable');
-        if (!document.getElementById('backToDashboardBtn')) {
-            const backBtn = document.createElement('div');
-            backBtn.id = 'backToDashboardBtn';
-            backBtn.style.cssText = 'padding: 20px; text-align: center;';
-            backBtn.innerHTML = '<button class="btn-login primary" onclick="goBackToDashboard()" style="background: var(--primary); color: #000;">← Volver al Dashboard</button>';
-            tableContainer.insertBefore(backBtn, tableContainer.firstChild);
-        }
     }
 
     function goBackToDashboard() {
-        document.getElementById('homeScreen').classList.add('active');
+        document.getElementById('homeScreen').classList.remove('hidden');
         document.getElementById('claimsTable').classList.add('hidden');
-        const backBtn = document.getElementById('backToDashboardBtn');
-        if (backBtn) backBtn.remove();
     }
 
     function populateClaimsTable() {
