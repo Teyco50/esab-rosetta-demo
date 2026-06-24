@@ -1026,18 +1026,12 @@
             outline: none;
         }
 
-        /* TICKET DETAILS - 2 COLUMN LAYOUT */
-        .ticket-details-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 20px;
-            padding: 0 40px;
-            margin: 20px 0 40px;
-        }
+        /* TICKET DETAILS - SIMPLE ROW STRUCTURE */
         .ticket-form-grid {
             display: block;
             padding: 0;
             background: white;
+            margin: 0 40px 40px;
             border: 1px solid #ddd;
         }
         .ticket-form-group {
@@ -1083,10 +1077,9 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            padding: 20px;
+            padding: 40px;
             background: white;
-            border: 1px solid #ddd;
-            height: fit-content;
+            margin: 0 40px 40px;
         }
         .ticket-info-group {
             display: grid;
@@ -1293,8 +1286,7 @@
 
         <!-- Ticket Details Tab -->
         <div id="ticketDetailsTab" class="tab-content active">
-            <div class="ticket-details-wrapper">
-                <div class="ticket-form-grid">
+            <div class="ticket-form-grid">
                 <div class="ticket-form-group">
                     <label class="ticket-form-label">Complaint Number:</label>
                     <input type="text" value="2606232014536" readonly class="ticket-form-input">
