@@ -2603,59 +2603,60 @@
     }
 
     function viewClaim(index) {
-        currentClaim = claimsData[index];
+        try {
+            currentClaim = claimsData[index];
 
-        // FIRST: Hide other screens and show the new claim details screen
-        document.getElementById('claimsTable').classList.add('hidden');
-        document.getElementById('ticketDetails').classList.add('hidden');
-        document.getElementById('newClaimFormScreen').classList.add('hidden');
-        document.getElementById('viewClaimDetailsScreen').classList.remove('hidden');
+            // FIRST: Hide other screens and show the new claim details screen
+            document.getElementById('claimsTable').classList.add('hidden');
+            document.getElementById('ticketDetails').classList.add('hidden');
+            document.getElementById('newClaimFormScreen').classList.add('hidden');
+            document.getElementById('viewClaimDetailsScreen').classList.remove('hidden');
 
-        // THEN: Set active tabs
-        document.querySelectorAll('#viewClaimDetailsScreen .tab').forEach((t, i) => {
-            t.classList.toggle('active', i === 0);
-        });
-        document.querySelectorAll('#viewClaimDetailsScreen .tab-content').forEach((c, i) => {
-            c.classList.toggle('active', i === 0);
-        });
+            // THEN: Set active tabs
+            const tabs = document.querySelectorAll('#viewClaimDetailsScreen .tab');
+            const contents = document.querySelectorAll('#viewClaimDetailsScreen .tab-content');
+            tabs.forEach((t, i) => t.classList.toggle('active', i === 0));
+            contents.forEach((c, i) => c.classList.toggle('active', i === 0));
 
-        // THEN: Fill Ticket Details Tab
-        const complaintNum = document.getElementById('view_complaintNumber');
-        if (complaintNum) complaintNum.value = currentClaim.id;
-        if (document.getElementById('view_type')) document.getElementById('view_type').value = currentClaim.type;
-        if (document.getElementById('view_status')) document.getElementById('view_status').value = currentClaim.status;
-        if (document.getElementById('view_site')) document.getElementById('view_site').value = currentClaim.site;
-        if (document.getElementById('view_product')) document.getElementById('view_product').value = currentClaim.product;
-        if (document.getElementById('view_reportedBy')) document.getElementById('view_reportedBy').value = currentClaim.reportedBy;
-        if (document.getElementById('view_assignedTo')) document.getElementById('view_assignedTo').value = currentClaim.assignedTo;
-        if (document.getElementById('view_qaCoordinator')) document.getElementById('view_qaCoordinator').value = currentClaim.qaCoordinator;
-        if (document.getElementById('view_timeElapsed')) document.getElementById('view_timeElapsed').value = currentClaim.timeElapsed;
-        if (document.getElementById('view_rmaNum')) document.getElementById('view_rmaNum').value = currentClaim.rmaNum;
-        if (document.getElementById('view_invoice')) document.getElementById('view_invoice').value = currentClaim.invoice;
-        if (document.getElementById('view_shipmentNum')) document.getElementById('view_shipmentNum').value = currentClaim.shipmentNum;
-        if (document.getElementById('view_creditNote')) document.getElementById('view_creditNote').value = currentClaim.creditNote;
+            // Update title
+            document.getElementById('viewClaimTitle').textContent = 'Claim: ' + currentClaim.id;
 
-        // Fill Analysis Tab
-        if (document.getElementById('view_analysisAssignedTo')) document.getElementById('view_analysisAssignedTo').value = currentClaim.assignedTo;
-        if (document.getElementById('view_analysisComments')) document.getElementById('view_analysisComments').value = 'Analysis in progress...';
+            // Fill fields safely
+            const fields = {
+                'view_complaintNumber': currentClaim.id,
+                'view_type': currentClaim.type,
+                'view_status': currentClaim.status,
+                'view_site': currentClaim.site,
+                'view_product': currentClaim.product,
+                'view_reportedBy': currentClaim.reportedBy,
+                'view_assignedTo': currentClaim.assignedTo,
+                'view_qaCoordinator': currentClaim.qaCoordinator,
+                'view_timeElapsed': currentClaim.timeElapsed,
+                'view_rmaNum': currentClaim.rmaNum,
+                'view_invoice': currentClaim.invoice,
+                'view_shipmentNum': currentClaim.shipmentNum,
+                'view_creditNote': currentClaim.creditNote,
+                'view_analysisAssignedTo': currentClaim.assignedTo,
+                'view_caAssignedTo': currentClaim.assignedTo,
+                'view_customer': currentClaim.site
+            };
 
-        // Fill Corrective Action Tab
-        if (document.getElementById('view_caAssignedTo')) document.getElementById('view_caAssignedTo').value = currentClaim.assignedTo;
-        if (document.getElementById('view_rootCause')) document.getElementById('view_rootCause').value = 'Root cause analysis pending...';
+            for (let id in fields) {
+                const el = document.getElementById(id);
+                if (el) el.value = fields[id];
+            }
 
-        // Fill Customer Notification Tab
-        if (document.getElementById('view_customer')) document.getElementById('view_customer').value = currentClaim.site;
+            if (document.getElementById('view_analysisComments'))
+                document.getElementById('view_analysisComments').value = 'Analysis in progress...';
+            if (document.getElementById('view_rootCause'))
+                document.getElementById('view_rootCause').value = 'Root cause analysis pending...';
 
-        // Fill Dates & History Tab
-        if (document.getElementById('view_timeElapsedTimeline')) document.getElementById('view_timeElapsedTimeline').textContent = currentClaim.timeElapsed;
-        if (document.getElementById('view_currentStatus')) document.getElementById('view_currentStatus').textContent = currentClaim.status;
-        if (document.getElementById('view_taskCount')) document.getElementById('view_taskCount').textContent = currentClaim.tasks;
-
-        // Update title
-        document.getElementById('viewClaimTitle').textContent = 'Claim: ' + currentClaim.id;
-
-        // Initialize resizable columns for the new content
-        setTimeout(makeTableColumnsResizable, 100);
+            // Initialize resizable columns
+            setTimeout(makeTableColumnsResizable, 100);
+        } catch(e) {
+            console.error('Error in viewClaim:', e);
+            alert('Error opening claim details. Please try again.');
+        }
     }
 
     function switchTab(tabBtn, contentId) {
