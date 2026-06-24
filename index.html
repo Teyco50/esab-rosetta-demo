@@ -2791,8 +2791,10 @@
         const totalClaims = currentUserClaims.length;
         document.getElementById('yearAccumulator').textContent = totalClaims;
 
-        // Update region distribution
-        updateRegionDistribution();
+        // Update region distribution with delay to ensure DOM is ready
+        setTimeout(() => {
+            updateRegionDistribution();
+        }, 100);
     }
 
     function updateRegionDistribution() {
@@ -2833,47 +2835,67 @@
     let worldMapInstance = null;
 
     function initializeWorldMap(regionCounts) {
-        // Destroy existing map if it exists
-        if (worldMapInstance) {
-            worldMapInstance.off();
-            worldMapInstance.remove();
-        }
+        try {
+            // Check if container exists
+            const mapContainer = document.getElementById('worldMap');
+            if (!mapContainer) return;
 
-        // Create new map centered on world
-        worldMapInstance = L.map('worldMap').setView([20, 0], 2);
+            // Destroy existing map if it exists
+            if (worldMapInstance) {
+                try {
+                    worldMapInstance.remove();
+                } catch(e) {}
+            }
 
-        // Add OpenStreetMap tiles
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-            maxZoom: 19,
-            style: { opacity: 0.7 }
-        }).addTo(worldMapInstance);
+            // Ensure container has content cleared
+            mapContainer.innerHTML = '';
 
-        // Define regions with coordinates
-        const regionMarkers = [
-            { name: 'N. América', lat: 45, lng: -100, count: Object.entries(regionCounts).filter(([site]) => site.includes('3rd Party') || site.includes('Party')).reduce((sum, [, val]) => sum + val, 0) },
-            { name: 'S. América', lat: -15, lng: -60, count: 4 },
-            { name: 'Europa', lat: 54, lng: 25, count: Object.entries(regionCounts).filter(([site]) => site.includes('Budapest')).reduce((sum, [, val]) => sum + val, 0) },
-            { name: 'África', lat: 0, lng: 20, count: 2 },
-            { name: 'Asia', lat: 34, lng: 100, count: Object.entries(regionCounts).filter(([site]) => site.includes('India') || site.includes('IGT')).reduce((sum, [, val]) => sum + val, 0) },
-            { name: 'Oceanía', lat: -27, lng: 133, count: 3 }
-        ];
+            // Create new map centered on world
+            worldMapInstance = L.map('worldMap', {
+                scrollWheelZoom: false
+            }).setView([20, 0], 2);
 
-        // Add markers for each region
-        regionMarkers.forEach(region => {
-            const markerHtml = `<div class="region-marker">${region.count}</div>`;
-            const customIcon = L.divIcon({
-                html: markerHtml,
-                className: '',
-                iconSize: [50, 50],
-                iconAnchor: [25, 25],
-                popupAnchor: [0, -25]
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap',
+                maxZoom: 19
+            }).addTo(worldMapInstance);
+
+            // Define regions with coordinates
+            const regionMarkers = [
+                { name: 'N. América', lat: 45, lng: -100, count: 8 },
+                { name: 'S. América', lat: -15, lng: -60, count: 4 },
+                { name: 'Europa', lat: 54, lng: 25, count: 6 },
+                { name: 'África', lat: 0, lng: 20, count: 2 },
+                { name: 'Asia', lat: 34, lng: 100, count: 5 },
+                { name: 'Oceanía', lat: -27, lng: 133, count: 3 }
+            ];
+
+            // Add markers for each region
+            regionMarkers.forEach(region => {
+                const customIcon = L.divIcon({
+                    html: `<div class="region-marker">${region.count}</div>`,
+                    className: '',
+                    iconSize: [50, 50],
+                    iconAnchor: [25, 25],
+                    popupAnchor: [0, -25]
+                });
+
+                L.marker([region.lat, region.lng], { icon: customIcon })
+                    .bindPopup(`<strong>${region.name}</strong><br>Claims: ${region.count}`)
+                    .addTo(worldMapInstance);
             });
 
-            L.marker([region.lat, region.lng], { icon: customIcon })
-                .bindPopup(`<strong>${region.name}</strong><br>Claims: ${region.count}`)
-                .addTo(worldMapInstance);
-        });
+            // Trigger map to recalculate size
+            setTimeout(() => {
+                if (worldMapInstance) {
+                    worldMapInstance.invalidateSize();
+                }
+            }, 100);
+
+        } catch(error) {
+            console.error('Error initializing map:', error);
+        }
     }
 
     function toggleDropdown(el) {
