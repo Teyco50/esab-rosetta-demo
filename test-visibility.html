@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .hidden { display: none !important; }
+        .container { padding: 20px; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>Visibility Toggle Test</h1>
+
+    <button onclick="testToggle()">Click to Test Toggle</button>
+
+    <div id="screen1" class="container">
+        <h2>Screen 1 - Dashboard</h2>
+        <p>This should be visible initially</p>
+    </div>
+
+    <div id="screen2" class="container hidden">
+        <h2>Screen 2 - Claims Table</h2>
+        <p>This should be hidden initially, but visible when clicking the button</p>
+    </div>
+
+    <script>
+        function testToggle() {
+            const screen1 = document.getElementById('screen1');
+            const screen2 = document.getElementById('screen2');
+
+            console.log('Before toggle:');
+            console.log('screen1 hidden:', screen1.classList.contains('hidden'));
+            console.log('screen2 hidden:', screen2.classList.contains('hidden'));
+
+            screen1.classList.add('hidden');
+            screen2.classList.remove('hidden');
+
+            console.log('After toggle:');
+            console.log('screen1 hidden:', screen1.classList.contains('hidden'));
+            console.log('screen2 hidden:', screen2.classList.contains('hidden'));
+        }
+    </script>
+</body>
+</html>

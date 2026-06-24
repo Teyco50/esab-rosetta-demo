@@ -3021,11 +3021,13 @@
     }
 
     function goToDashboard() {
-        document.getElementById('dashboard').classList.remove('hidden');
-        document.getElementById('claimsTable').classList.add('hidden');
-        document.getElementById('ticketDetails').classList.add('hidden');
-        document.getElementById('claimTypesScreen').classList.add('hidden');
-        document.getElementById('newClaimFormScreen').classList.add('hidden');
+        const homeScreen = document.getElementById('homeScreen');
+        const claimsTable = document.getElementById('claimsTable');
+        const ticketDetails = document.getElementById('ticketDetails');
+
+        if (homeScreen) homeScreen.classList.remove('hidden');
+        if (claimsTable) claimsTable.classList.add('hidden');
+        if (ticketDetails) ticketDetails.classList.add('hidden');
     }
 
     function showClaimsTable() {
