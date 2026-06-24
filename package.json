@@ -1,0 +1,9 @@
+{
+  "name": "esab-rosetta-demo",
+  "version": "1.0.0",
+  "description": "ESAB Rosetta Claims Management - Modern UI Demo",
+  "private": true,
+  "scripts": {
+    "start": "npx http-server -p 3000"
+  }
+}
