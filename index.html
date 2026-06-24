@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESAB Rosetta - Advanced Claims Management System v2.0</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -1272,32 +1270,6 @@
             font-size: 12px;
             color: #666;
         }
-        #worldMap {
-            width: 100%;
-            height: 400px;
-            border-radius: 8px;
-            z-index: 1;
-        }
-        .leaflet-container {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-        }
-        .leaflet-popup-content {
-            font-size: 12px;
-        }
-        .region-marker {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
-            background: linear-gradient(135deg, var(--primary), #ffed4e);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            border: 3px solid white;
-        }
     </style>
 </head>
 <body>
@@ -1329,7 +1301,47 @@
         <!-- World Map Section -->
         <div class="world-map-section">
             <h2>📍 Claims por Región</h2>
-            <div id="worldMap" class="world-map-container"></div>
+            <div class="world-map-container" style="background: linear-gradient(135deg, #fafafa, #f0f0f0); padding: 40px; text-align: center; border-radius: 8px;">
+                <div style="font-size: 48px; margin-bottom: 20px;">🌍</div>
+                <h3 style="color: #333; margin-bottom: 20px;">Distribución Global de Claims</h3>
+                <table style="width: 100%; margin-top: 20px; border-collapse: collapse;">
+                    <tr style="background: var(--primary);">
+                        <th style="padding: 12px; text-align: left; color: #000; font-weight: bold;">Región</th>
+                        <th style="padding: 12px; text-align: center; color: #000; font-weight: bold;">Claims</th>
+                        <th style="padding: 12px; text-align: center; color: #000; font-weight: bold;">% Total</th>
+                    </tr>
+                    <tr style="background: white; border-bottom: 1px solid #eee;">
+                        <td style="padding: 12px;">🇺🇸 North America</td>
+                        <td style="padding: 12px; text-align: center; font-weight: bold;">8</td>
+                        <td style="padding: 12px; text-align: center;">35%</td>
+                    </tr>
+                    <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                        <td style="padding: 12px;">🇦🇸 South America</td>
+                        <td style="padding: 12px; text-align: center; font-weight: bold;">4</td>
+                        <td style="padding: 12px; text-align: center;">17%</td>
+                    </tr>
+                    <tr style="background: white; border-bottom: 1px solid #eee;">
+                        <td style="padding: 12px;">🇪🇺 Europe</td>
+                        <td style="padding: 12px; text-align: center; font-weight: bold;">6</td>
+                        <td style="padding: 12px; text-align: center;">26%</td>
+                    </tr>
+                    <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                        <td style="padding: 12px;">🇿🇦 Africa</td>
+                        <td style="padding: 12px; text-align: center; font-weight: bold;">2</td>
+                        <td style="padding: 12px; text-align: center;">9%</td>
+                    </tr>
+                    <tr style="background: white; border-bottom: 1px solid #eee;">
+                        <td style="padding: 12px;">🇮🇳 Asia</td>
+                        <td style="padding: 12px; text-align: center; font-weight: bold;">5</td>
+                        <td style="padding: 12px; text-align: center;">22%</td>
+                    </tr>
+                    <tr style="background: #f9f9f9;">
+                        <td style="padding: 12px;">🇦🇺 Oceania</td>
+                        <td style="padding: 12px; text-align: center; font-weight: bold;">3</td>
+                        <td style="padding: 12px; text-align: center;">13%</td>
+                    </tr>
+                </table>
+            </div>
             <div class="region-legend">
                 <div class="region-item">
                     <div class="color-dot" style="background: #FFE5CC;"></div>
@@ -2798,104 +2810,12 @@
     }
 
     function updateRegionDistribution() {
-        // Count claims by region/site
+        // Count claims by region/site (no longer needed with static table)
         const regionCounts = {};
         currentUserClaims.forEach(claim => {
             const region = claim.site || 'Other';
             regionCounts[region] = (regionCounts[region] || 0) + 1;
         });
-
-        // Initialize map with Leaflet
-        initializeWorldMap(regionCounts);
-
-        // Update legend
-        const regions = [
-            { name: 'N. América', key: 'America' },
-            { name: 'S. América', key: 'América' },
-            { name: 'Europa', key: 'Europe' },
-            { name: 'África', key: 'Africa' },
-            { name: 'Asia', key: 'Asia' },
-            { name: 'Oceanía', key: 'Australia' }
-        ];
-
-        let totalDisplayed = 0;
-        regions.forEach((region, index) => {
-            const count = Object.entries(regionCounts)
-                .filter(([site]) => site.includes(region.key))
-                .reduce((sum, [, val]) => sum + val, 0);
-
-            const legendItem = document.querySelectorAll('.region-item')[index];
-            if (legendItem) {
-                legendItem.querySelector('span').textContent = `${region.name}: ${count}`;
-            }
-            totalDisplayed += count;
-        });
-    }
-
-    let worldMapInstance = null;
-
-    function initializeWorldMap(regionCounts) {
-        try {
-            // Check if container exists
-            const mapContainer = document.getElementById('worldMap');
-            if (!mapContainer) return;
-
-            // Destroy existing map if it exists
-            if (worldMapInstance) {
-                try {
-                    worldMapInstance.remove();
-                } catch(e) {}
-            }
-
-            // Ensure container has content cleared
-            mapContainer.innerHTML = '';
-
-            // Create new map centered on world
-            worldMapInstance = L.map('worldMap', {
-                scrollWheelZoom: false
-            }).setView([20, 0], 2);
-
-            // Add OpenStreetMap tiles
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap',
-                maxZoom: 19
-            }).addTo(worldMapInstance);
-
-            // Define regions with coordinates
-            const regionMarkers = [
-                { name: 'N. América', lat: 45, lng: -100, count: 8 },
-                { name: 'S. América', lat: -15, lng: -60, count: 4 },
-                { name: 'Europa', lat: 54, lng: 25, count: 6 },
-                { name: 'África', lat: 0, lng: 20, count: 2 },
-                { name: 'Asia', lat: 34, lng: 100, count: 5 },
-                { name: 'Oceanía', lat: -27, lng: 133, count: 3 }
-            ];
-
-            // Add markers for each region
-            regionMarkers.forEach(region => {
-                const customIcon = L.divIcon({
-                    html: `<div class="region-marker">${region.count}</div>`,
-                    className: '',
-                    iconSize: [50, 50],
-                    iconAnchor: [25, 25],
-                    popupAnchor: [0, -25]
-                });
-
-                L.marker([region.lat, region.lng], { icon: customIcon })
-                    .bindPopup(`<strong>${region.name}</strong><br>Claims: ${region.count}`)
-                    .addTo(worldMapInstance);
-            });
-
-            // Trigger map to recalculate size
-            setTimeout(() => {
-                if (worldMapInstance) {
-                    worldMapInstance.invalidateSize();
-                }
-            }, 100);
-
-        } catch(error) {
-            console.error('Error initializing map:', error);
-        }
     }
 
     function toggleDropdown(el) {
