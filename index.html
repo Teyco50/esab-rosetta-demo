@@ -1301,46 +1301,41 @@
         <!-- World Map Section -->
         <div class="world-map-section">
             <h2>📍 Claims por Región</h2>
-            <div class="world-map-container" style="background: linear-gradient(135deg, #fafafa, #f0f0f0); padding: 40px; text-align: center; border-radius: 8px;">
-                <div style="font-size: 48px; margin-bottom: 20px;">🌍</div>
-                <h3 style="color: #333; margin-bottom: 20px;">Distribución Global de Claims</h3>
-                <table style="width: 100%; margin-top: 20px; border-collapse: collapse;">
-                    <tr style="background: var(--primary);">
-                        <th style="padding: 12px; text-align: left; color: #000; font-weight: bold;">Región</th>
-                        <th style="padding: 12px; text-align: center; color: #000; font-weight: bold;">Claims</th>
-                        <th style="padding: 12px; text-align: center; color: #000; font-weight: bold;">% Total</th>
-                    </tr>
-                    <tr style="background: white; border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px;">🇺🇸 North America</td>
-                        <td style="padding: 12px; text-align: center; font-weight: bold;">8</td>
-                        <td style="padding: 12px; text-align: center;">35%</td>
-                    </tr>
-                    <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px;">🇦🇸 South America</td>
-                        <td style="padding: 12px; text-align: center; font-weight: bold;">4</td>
-                        <td style="padding: 12px; text-align: center;">17%</td>
-                    </tr>
-                    <tr style="background: white; border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px;">🇪🇺 Europe</td>
-                        <td style="padding: 12px; text-align: center; font-weight: bold;">6</td>
-                        <td style="padding: 12px; text-align: center;">26%</td>
-                    </tr>
-                    <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px;">🇿🇦 Africa</td>
-                        <td style="padding: 12px; text-align: center; font-weight: bold;">2</td>
-                        <td style="padding: 12px; text-align: center;">9%</td>
-                    </tr>
-                    <tr style="background: white; border-bottom: 1px solid #eee;">
-                        <td style="padding: 12px;">🇮🇳 Asia</td>
-                        <td style="padding: 12px; text-align: center; font-weight: bold;">5</td>
-                        <td style="padding: 12px; text-align: center;">22%</td>
-                    </tr>
-                    <tr style="background: #f9f9f9;">
-                        <td style="padding: 12px;">🇦🇺 Oceania</td>
-                        <td style="padding: 12px; text-align: center; font-weight: bold;">3</td>
-                        <td style="padding: 12px; text-align: center;">13%</td>
-                    </tr>
-                </table>
+            <div class="world-map-container">
+                <svg viewBox="0 0 1000 600" style="width: 100%; max-width: 900px; height: auto;">
+                    <!-- Simplified World Map with regions -->
+                    <!-- North America -->
+                    <circle cx="200" cy="200" r="60" fill="#FFE5CC" stroke="#999" stroke-width="2" opacity="0.8"/>
+                    <!-- South America -->
+                    <circle cx="250" cy="400" r="50" fill="#FFD4B3" stroke="#999" stroke-width="2" opacity="0.8"/>
+                    <!-- Europe -->
+                    <circle cx="450" cy="180" r="55" fill="#FFD700" stroke="#333" stroke-width="2" opacity="0.9"/>
+                    <!-- Africa -->
+                    <circle cx="500" cy="350" r="50" fill="#FFC700" stroke="#333" stroke-width="2" opacity="0.9"/>
+                    <!-- Asia -->
+                    <circle cx="650" cy="280" r="70" fill="#FFB700" stroke="#333" stroke-width="2" opacity="0.9"/>
+                    <!-- Australia -->
+                    <circle cx="750" cy="420" r="45" fill="#FFAD00" stroke="#333" stroke-width="2" opacity="0.8"/>
+
+                    <!-- Region Labels -->
+                    <text x="200" y="210" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">N. América</text>
+                    <text x="200" y="230" font-size="14" font-weight="bold" text-anchor="middle" fill="#666">8</text>
+
+                    <text x="250" y="410" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">S. América</text>
+                    <text x="250" y="430" font-size="14" font-weight="bold" text-anchor="middle" fill="#666">4</text>
+
+                    <text x="450" y="185" font-size="18" font-weight="bold" text-anchor="middle" fill="#000">Europa</text>
+                    <text x="450" y="205" font-size="14" font-weight="bold" text-anchor="middle" fill="#000">6</text>
+
+                    <text x="500" y="355" font-size="18" font-weight="bold" text-anchor="middle" fill="#000">África</text>
+                    <text x="500" y="375" font-size="14" font-weight="bold" text-anchor="middle" fill="#000">2</text>
+
+                    <text x="650" y="285" font-size="18" font-weight="bold" text-anchor="middle" fill="#000">Asia</text>
+                    <text x="650" y="305" font-size="14" font-weight="bold" text-anchor="middle" fill="#000">5</text>
+
+                    <text x="750" y="425" font-size="18" font-weight="bold" text-anchor="middle" fill="#000">Oceanía</text>
+                    <text x="750" y="445" font-size="14" font-weight="bold" text-anchor="middle" fill="#000">3</text>
+                </svg>
             </div>
             <div class="region-legend">
                 <div class="region-item">
