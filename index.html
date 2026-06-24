@@ -1028,20 +1028,23 @@
 
         /* TICKET DETAILS - SIMPLE ROW STRUCTURE */
         .ticket-form-grid {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
             padding: 0;
-            background: white;
+            background: transparent;
             margin: 0 40px 40px;
-            border: 1px solid #ddd;
         }
         .ticket-form-group {
             display: grid;
             grid-template-columns: 220px 1fr;
             width: 100%;
-            border-bottom: 1px solid #e0e0e0;
+            background: white;
+            border: 1px solid #ddd;
+            padding: 0;
         }
         .ticket-form-group:last-child {
-            border-bottom: none;
+            margin-bottom: 0;
         }
         .ticket-form-label {
             font-weight: 700;
