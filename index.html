@@ -1354,8 +1354,9 @@
             </div>
         </div>
 
-        <!-- Logout Button -->
-        <div style="grid-column: 1 / -1; text-align: center; margin-top: 20px;">
+        <!-- Action Buttons -->
+        <div style="grid-column: 1 / -1; text-align: center; margin-top: 20px; display: flex; gap: 12px; justify-content: center;">
+            <button class="btn-login primary" onclick="showUserClaimsTable()" style="background: var(--primary); color: #000;">Ver Mis Claims</button>
             <button class="btn-login primary" onclick="logout()" style="background: #ef4444;">Logout</button>
         </div>
     </div>
@@ -2730,6 +2731,8 @@
     ];
 
     let currentClaim = null;
+    let currentUser = null;
+    let currentUserClaims = [];
 
     function login() {
         const username = document.getElementById('username').value;
@@ -2743,8 +2746,25 @@
             const displayName = userNameParts.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
             document.getElementById('welcomeUser').textContent = displayName;
 
+            // Store current user and filter their claims
+            currentUser = displayName;
+            filterUserClaims();
+
             // Calculate KPIs
             updateDashboardKPIs();
+        }
+    }
+
+    function filterUserClaims() {
+        // Filter claims assigned to the current user or reported by them
+        currentUserClaims = claimsData.filter(c =>
+            c.assignedTo && c.assignedTo.toLowerCase().includes(currentUser.toLowerCase().split(' ')[0]) ||
+            c.reportedBy && c.reportedBy.toLowerCase().includes(currentUser.toLowerCase().split(' ')[0])
+        );
+
+        // If no exact match, show all claims (for demo purposes)
+        if (currentUserClaims.length === 0) {
+            currentUserClaims = claimsData;
         }
     }
 
@@ -2753,20 +2773,61 @@
         document.getElementById('loginScreen').classList.remove('hidden');
         document.getElementById('username').value = '';
         document.getElementById('password').value = '';
+        currentUser = null;
+        currentUserClaims = [];
     }
 
     function updateDashboardKPIs() {
-        // Calculate open claims
-        const openClaims = claimsData.filter(c => c.status === 'Open').length;
+        // Calculate open claims for current user
+        const openClaims = currentUserClaims.filter(c =>
+            c.status === 'Submitted' || c.status === 'In Progress' || c.status === 'Open'
+        ).length;
         document.getElementById('openClaimsCount').textContent = openClaims;
 
-        // Calculate closed claims
-        const closedClaims = claimsData.filter(c => c.status === 'Closed').length;
+        // Calculate closed claims for current user
+        const closedClaims = currentUserClaims.filter(c =>
+            c.status === 'RMA Issued' || c.status === 'Closed' || c.status === 'Completed'
+        ).length;
         document.getElementById('closedClaimsCount').textContent = closedClaims;
 
-        // Total claims (year accumulator)
-        const totalClaims = claimsData.length;
+        // Total claims for current user (year accumulator)
+        const totalClaims = currentUserClaims.length;
         document.getElementById('yearAccumulator').textContent = totalClaims;
+
+        // Update region distribution
+        updateRegionDistribution();
+    }
+
+    function updateRegionDistribution() {
+        // Count claims by region/site
+        const regionCounts = {};
+        currentUserClaims.forEach(claim => {
+            const region = claim.site || 'Other';
+            regionCounts[region] = (regionCounts[region] || 0) + 1;
+        });
+
+        // Update legend
+        const regions = [
+            { name: 'N. América', key: 'America' },
+            { name: 'S. América', key: 'América' },
+            { name: 'Europa', key: 'Europe' },
+            { name: 'África', key: 'Africa' },
+            { name: 'Asia', key: 'Asia' },
+            { name: 'Oceanía', key: 'Australia' }
+        ];
+
+        let totalDisplayed = 0;
+        regions.forEach((region, index) => {
+            const count = Object.entries(regionCounts)
+                .filter(([site]) => site.includes(region.key))
+                .reduce((sum, [, val]) => sum + val, 0);
+
+            const legendItem = document.querySelectorAll('.region-item')[index];
+            if (legendItem) {
+                legendItem.querySelector('span').textContent = `${region.name}: ${count}`;
+            }
+            totalDisplayed += count;
+        });
     }
 
     function toggleDropdown(el) {
@@ -2785,13 +2846,39 @@
         document.getElementById('dashboard').classList.add('hidden');
         document.getElementById('claimsTable').classList.remove('hidden');
         document.getElementById('ticketDetails').classList.add('hidden');
+        document.getElementById('homeScreen').classList.remove('active');
         populateClaimsTable();
+    }
+
+    function showUserClaimsTable() {
+        // Hide home screen and show claims table
+        document.getElementById('homeScreen').classList.remove('active');
+        document.getElementById('claimsTable').classList.remove('hidden');
+        document.getElementById('ticketDetails').classList.add('hidden');
+        populateClaimsTable();
+
+        // Add back to dashboard button
+        const tableContainer = document.getElementById('claimsTable');
+        if (!document.getElementById('backToDashboardBtn')) {
+            const backBtn = document.createElement('div');
+            backBtn.id = 'backToDashboardBtn';
+            backBtn.style.cssText = 'padding: 20px; text-align: center;';
+            backBtn.innerHTML = '<button class="btn-login primary" onclick="goBackToDashboard()" style="background: var(--primary); color: #000;">← Volver al Dashboard</button>';
+            tableContainer.insertBefore(backBtn, tableContainer.firstChild);
+        }
+    }
+
+    function goBackToDashboard() {
+        document.getElementById('homeScreen').classList.add('active');
+        document.getElementById('claimsTable').classList.add('hidden');
+        const backBtn = document.getElementById('backToDashboardBtn');
+        if (backBtn) backBtn.remove();
     }
 
     function populateClaimsTable() {
         const tbody = document.getElementById('claimsTableBody');
         tbody.innerHTML = '';
-        claimsData.forEach((claim, index) => {
+        currentUserClaims.forEach((claim) => {
             const row = tbody.insertRow();
             const statusColor = claim.status === 'Submitted' ? 'green' : claim.status === 'RMA Issued' ? 'yellow' : 'blue';
             row.innerHTML = `
@@ -2810,14 +2897,28 @@
                 <td>${claim.shipmentNum}</td>
                 <td>${claim.creditNote}</td>
                 <td>${claim.tasks}</td>
-                <td><button class="btn btn-small btn-primary" onclick="viewClaim(${index})">View</button></td>
+                <td><button class="btn btn-small btn-primary" onclick="viewClaimByData(this)">View</button></td>
             `;
         });
     }
 
+    function viewClaimByData(button) {
+        // Get the claim data from the row
+        const row = button.closest('tr');
+        const claimId = row.cells[2].textContent;
+        const claim = currentUserClaims.find(c => c.id === claimId);
+        if (claim) {
+            currentClaim = claim;
+            viewClaimDetails();
+        }
+    }
+
     function viewClaim(index) {
         currentClaim = claimsData[index];
+        viewClaimDetails();
+    }
 
+    function viewClaimDetails() {
         // Hide other screens
         document.getElementById('claimsTable').classList.add('hidden');
         document.getElementById('ticketDetails').classList.add('hidden');
